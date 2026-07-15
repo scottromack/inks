@@ -5,6 +5,7 @@
 
 import { writeFileSync } from "node:fs";
 import intent from "./inks.intent.mjs";
+import { computeCorrection } from "./hk.mjs";
 
 const { lightness, chroma, hues, gray, taste = {} } = intent;
 
@@ -18,6 +19,21 @@ if (gray) families.gray = gray === true ? "neutral" : gray;
 Object.assign(families, hues);
 const famNames = Object.keys(families);
 const hueOf = (spec) => (typeof spec === "number" ? spec : spec.hue);
+
+// hk is DERIVED, not stored: the Nayatani correction is computed here from
+// each hue + its fader (hk.mjs). The intent carries no hk — regenerating
+// always re-derives it, so it can never go stale against the hues.
+// EXACT per-step: correction is solved at every step's real chroma
+// (curve x fader) and zero-centered per step, not one coefficient fit at
+// the peak. Result is CORR[fam][step] = the ΔL to add to the spine.
+const hkEntries = Object.entries(families)
+  .filter(([, spec]) => spec !== "neutral")
+  .map(([name, spec]) => ({
+    name,
+    hue: hueOf(spec),
+    fader: (typeof spec === "object" ? spec.chroma : undefined) ?? 1,
+  }));
+const CORR = computeCorrection(lightness, chroma, hkEntries, STEPS);
 
 const out = [];
 const push = (s = "") => out.push(s);
@@ -44,20 +60,22 @@ for (const s of STEPS) push(`  --chroma-${s}: ${chroma[s]};`);
 push();
 push(`  /* HUES === a family is a name/hue pair.`);
 push(`     --{fam}-chroma : fader (var(--{fam}-chroma, 1)) — declared to depart.`);
-push(`     --{fam}-hk     : Helmholtz-Kohlrausch CORRECTION coefficient`);
-push(`                      (Nayatani 1997) — perceptual uniformity, science.`);
+push(`     --{fam}-d-{s}  : Helmholtz-Kohlrausch correction ΔL, DERIVED here per`);
+push(`                      step from hue+fader via hk.mjs (Nayatani 1997). The`);
+push(`                      EXACT per-step ΔL — solved at each step's real chroma,`);
+push(`                      zero-centered across hues per step. Not stored.`);
 push(`     --{fam}-taste  : aesthetic lightness offset — preference, not science.`);
-push(`     Effective L = spine + hk*chroma + taste, all live in CSS calc.`);
+push(`     Effective L = spine + d-{s} + taste, all live in CSS calc.`);
 push(`     Gray is not a family — it is the lightness axis, rendered. */`);
 for (const [fam, spec] of Object.entries(families)) {
   if (spec === "neutral") continue;
   push(`  --${fam}-hue: ${hueOf(spec)};`);
   if (typeof spec === "object" && spec.chroma != null)
     push(`  --${fam}-chroma: ${spec.chroma};`);
-  if (typeof spec === "object" && spec.hk != null)
-    push(`  --${fam}-hk: ${spec.hk};`);
   if (taste[fam] != null)
     push(`  --${fam}-taste: ${taste[fam]};`);
+  // per-step hk correction ΔL (the exact table)
+  for (const s of STEPS) push(`  --${fam}-d-${s}: ${CORR[fam][s]};`);
 }
 push();
 
@@ -73,7 +91,7 @@ for (const fam of famNames) {
     push(
       families[fam] === "neutral"
         ? `  --base-${fam}-${s}: oklch(var(--L-${s}) 0 0);`
-        : `  --base-${fam}-${s}: oklch(calc(var(--L-${s}) + var(--${fam}-hk, 0) * var(--chroma-${s}) * var(--${fam}-chroma, 1) + var(--${fam}-taste, 0)) calc(var(--chroma-${s}) * var(--${fam}-chroma, 1)) var(--${fam}-hue));`
+        : `  --base-${fam}-${s}: oklch(calc(var(--L-${s}) + var(--${fam}-d-${s}, 0) + var(--${fam}-taste, 0)) calc(var(--chroma-${s}) * var(--${fam}-chroma, 1)) var(--${fam}-hue));`
     );
   }
 }

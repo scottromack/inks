@@ -74,16 +74,26 @@ color is never stored — derived per surface by `contrast-color()`.
     inherit; neither does its shadow. (Also pre-wires the eventual
     `if(style(--bg))` property-as-selector endgame — parked until
     `if()` is cross-browser.)
-11. **Lightness is derived, not stored: `spine + hk·chroma + taste`.**
-    Effective L per hue = the shared spine, plus a Helmholtz-Kohlrausch
-    CORRECTION (`--{fam}-hk`, coefficient from Nayatani 1997 via the
-    `colour-science` Python lib, **zero-centered** so hues balance around
-    the spine rather than all darkening vs neutral) applied as `hk·chroma`
-    so equal steps read equally bright across hues, plus an optional TASTE offset
+11. **Lightness is derived, not stored: `spine + d-{step} + taste`.**
+    Effective L per hue-step = the shared spine, plus a Helmholtz-Kohlrausch
+    CORRECTION ΔL (`--{fam}-d-{step}`) so equal steps read equally bright
+    across hues. The correction is **EXACT per-step**: for each hue at each
+    step it is solved at that step's real chroma (curve × fader) and
+    zero-centered across hues per step — not one coefficient fit at the peak
+    and extrapolated linearly. d is **DERIVED at build**, not stored:
+    `generate.mjs` computes the whole table from each hue+fader via `hk.mjs`
+    (a pure-JS Nayatani 1997 VCC port, validated to match `colour-science`
+    to 5-decimal rounding — no Python, no runtime dep). **Zero-centered per
+    step** so hues balance around the spine at every step rather than all
+    darkening vs neutral (net lightness stays on the spine). The intent
+    carries NO d — regen always re-derives it, so it can't go stale against
+    the hues. Plus an optional TASTE offset
     (`--{fam}-taste`, aesthetic, default 0 — the ONLY place preference
-    lives). All three resolve in one CSS `calc()` in the base token, so
-    moving spine/curve/fader/taste re-derives every hue instantly:
-    nothing stored per family, the sync bug structurally impossible.
+    lives). Spine + per-step ΔL + taste resolve in one CSS `calc()` in the
+    base token, so moving the spine slider re-derives every hue live;
+    moving curve/fader/hue re-derives the ΔL table on the next `node
+    generate.mjs`. Nothing stored per family, the sync bug structurally
+    impossible.
     Correction is science (do not eyeball); taste is preference (label
     it, keep it out of the correction). The old warm-lift lightness
     tables are **DELETED** — they fit the gamut, and INKs optimizes for
@@ -96,24 +106,32 @@ color is never stored — derived per surface by `contrast-color()`.
 - Tailwind **v4.3.2**; `node generate.mjs` → `inks.css`, then
   `demo/dist.css` rebuilt clean. 17 families (16 hues + gray) ×
   13 steps = 221 tokens.
-- Model: flat shared spine; effective L = `spine + hk·chroma + taste`
+- Model: flat shared spine; effective L = `spine + d-{step} + taste`
   in one CSS `calc()` (§11). CHROMA = arch × per-hue fader, unclamped;
   13 steps, deep 0/1000. Warm-lift hack removed.
 - Faders from a Tailwind-palette study (greens ~0.7, magentas ~1.3).
-  `hk` from Nayatani 1997 (`colour-science`, VCC/object), **zero-centered**:
-  the common-mode darkening-vs-neutral is removed so hues balance around
-  the spine (net L unchanged). Warm lifts (yellow +0.33, amber +0.21),
-  cool drops (sky −0.14, blue −0.12) — independently reproduces Tailwind's
-  tilt. `taste` ships empty (pure model), no bench UI.
+  Per-step correction `--{fam}-d-{s}` DERIVED at build by `hk.mjs`
+  (pure-JS Nayatani 1997 VCC, EXACT per-step — solved at each step's real
+  chroma, zero-centered per step; validated against `colour-science`'s own
+  `HelmholtzKohlrausch_effect_object_Nayatani1997` to 5-decimal rounding,
+  max Δ 5e-6). Warm lifts, cool drops — reproduces Tailwind's tilt.
+  `taste` ships empty, no bench UI.
+- **Pipeline is fully local**: `node generate.mjs` derives the ΔL table +
+  writes `inks.css` with zero Python/cloud. `dist.css` rebuilds via `npm
+  run demo` (native on the Mac; the Linux device-VM can't — its
+  `node_modules` is macOS-native, no Linux `@parcel/watcher`). Loop: tune
+  bench → Copy intent (hue+fader, no d) → paste → `node generate.mjs` →
+  `npm run demo`.
 - `--paper` = true white/black, demo backdrop only (§3 intact).
 - `contrast-color` count: 221 matrix + 3 hover + 1 arbitrary + 1
   paper = **226**.
 - Bench decks: LIGHTNESS/CHROMA/HUES + FADERS + HK (read-only bars
-  showing the Nayatani correction — visible, not a knob). The spine
-  slider now moves every hue live (calc), so the old warm-sync bug is
-  gone. Taste stays in the model (§11) but has NO bench UI — pure model
-  ships; hand-edit the `taste:` block only if ever wanted. Copy-intent
-  emits spine + curve + hues{hue,fader,hk} + a separate taste block.
+  showing the Nayatani correction ΔL at step 500, `--{fam}-d-500` —
+  visible, not a knob). The spine slider now moves every hue live (calc),
+  so the old warm-sync bug is gone. Taste stays in the model (§11) but has
+  NO bench UI — pure model ships; hand-edit the `taste:` block only if ever
+  wanted. Copy-intent emits spine + curve + hues{hue,fader} + a separate
+  taste block (no d: it's build-derived).
 - `demo/dist.css` is committed so `demo/index.html` opens on file://;
   rebuild via `npm run demo`.
 
@@ -159,3 +177,11 @@ color is never stored — derived per surface by `contrast-color()`.
 - When in doubt about a design question: it goes back to the
   conversational layer. This file is the interface between the two
   hands; keep it current when rulings change.
+
+- **Edit files in the repo, always** (SETTLED, Scott, July 2026).
+  The repo at `/Users/sromack/Develop/inks` is the single source of
+  truth. Never work from a cloud copy or a staged snapshot — those drift
+  behind the live disk and have clobbered edits. Change source in place,
+  run `node generate.mjs` in the repo to regenerate `inks.css`, and let
+  `npm run demo` build `dist.css` natively on the Mac. That is what a
+  repo is for.
