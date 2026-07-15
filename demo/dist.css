@@ -3,27 +3,14 @@
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
-    --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-sans: "Alliance", ui-sans-serif, system-ui, sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-red-100: oklch(93.6% 0.032 17.717);
+    --color-red-50: oklch(97.1% 0.013 17.38);
+    --color-red-200: oklch(88.5% 0.062 18.334);
     --color-red-400: oklch(70.4% 0.191 22.216);
     --color-red-500: oklch(63.7% 0.237 25.331);
-    --color-red-800: oklch(44.4% 0.177 26.899);
-    --color-green-100: oklch(96.2% 0.044 156.743);
-    --color-green-400: oklch(79.2% 0.209 151.711);
-    --color-green-500: oklch(72.3% 0.219 149.579);
-    --color-green-800: oklch(44.8% 0.119 151.328);
-    --color-indigo-400: oklch(67.3% 0.182 276.935);
-    --color-indigo-600: oklch(51.1% 0.262 276.966);
-    --color-gray-100: oklch(96.7% 0.003 264.542);
-    --color-gray-200: oklch(92.8% 0.006 264.531);
-    --color-gray-400: oklch(70.7% 0.022 261.325);
-    --color-gray-500: oklch(55.1% 0.027 264.364);
-    --color-gray-800: oklch(27.8% 0.033 256.848);
-    --color-gray-900: oklch(21% 0.034 264.665);
-    --color-white: #fff;
+    --color-red-600: oklch(57.7% 0.245 27.325);
     --spacing: 0.25rem;
     --text-xs: 0.75rem;
     --text-xs--line-height: calc(1 / 0.75);
@@ -35,9 +22,10 @@
     --text-xl--line-height: calc(1.75 / 1.25);
     --text-2xl: 1.5rem;
     --text-2xl--line-height: calc(2 / 1.5);
+    --text-6xl: 3.75rem;
+    --text-6xl--line-height: 1;
     --font-weight-normal: 400;
     --font-weight-medium: 500;
-    --font-weight-semibold: 600;
     --font-weight-bold: 700;
     --radius-lg: 0.5rem;
     --default-font-family: var(--font-sans);
@@ -69,244 +57,244 @@
     --chroma-950: 0.057;
     --chroma-1000: 0.04;
     --red-hue: 33.75;
-    --red-chroma: 1.1;
-    --red-d-0: 0.00389;
-    --red-d-50: 0.0047;
-    --red-d-100: 0.00545;
-    --red-d-200: 0.00463;
-    --red-d-300: 0.00124;
-    --red-d-400: -0.00273;
-    --red-d-500: -0.00442;
-    --red-d-600: -0.00396;
-    --red-d-700: -0.00233;
-    --red-d-800: 0.00017;
-    --red-d-900: 0.00019;
-    --red-d-950: -0.00087;
-    --red-d-1000: 0.00027;
+    --red-chroma: 1.22;
+    --red-d-0: 0.00402;
+    --red-d-50: 0.00476;
+    --red-d-100: 0.00517;
+    --red-d-200: 0.00357;
+    --red-d-300: -0.00119;
+    --red-d-400: -0.00626;
+    --red-d-500: -0.00824;
+    --red-d-600: -0.0073;
+    --red-d-700: -0.00484;
+    --red-d-800: -0.00125;
+    --red-d-900: -0.00085;
+    --red-d-950: -0.00194;
+    --red-d-1000: -0.00032;
     --orange-hue: 56.25;
-    --orange-d-0: 0.01131;
-    --orange-d-50: 0.0147;
-    --orange-d-100: 0.02045;
-    --orange-d-200: 0.02524;
-    --orange-d-300: 0.02688;
-    --orange-d-400: 0.02402;
-    --orange-d-500: 0.02107;
-    --orange-d-600: 0.0182;
-    --orange-d-700: 0.01578;
-    --orange-d-800: 0.01389;
-    --orange-d-900: 0.01032;
-    --orange-d-950: 0.00717;
-    --orange-d-1000: 0.00639;
+    --orange-d-0: 0.01191;
+    --orange-d-50: 0.0155;
+    --orange-d-100: 0.02162;
+    --orange-d-200: 0.0268;
+    --orange-d-300: 0.02872;
+    --orange-d-400: 0.02585;
+    --orange-d-500: 0.02276;
+    --orange-d-600: 0.01967;
+    --orange-d-700: 0.01701;
+    --orange-d-800: 0.01487;
+    --orange-d-900: 0.01104;
+    --orange-d-950: 0.00772;
+    --orange-d-1000: 0.00683;
     --amber-hue: 78.75;
     --amber-chroma: 0.86;
-    --amber-d-0: 0.01459;
-    --amber-d-50: 0.01953;
-    --amber-d-100: 0.02905;
-    --amber-d-200: 0.03986;
-    --amber-d-300: 0.05016;
-    --amber-d-400: 0.05323;
-    --amber-d-500: 0.05116;
-    --amber-d-600: 0.04452;
-    --amber-d-700: 0.03616;
-    --amber-d-800: 0.02694;
-    --amber-d-900: 0.01989;
-    --amber-d-950: 0.01601;
-    --amber-d-1000: 0.01199;
+    --amber-d-0: 0.01519;
+    --amber-d-50: 0.02032;
+    --amber-d-100: 0.03022;
+    --amber-d-200: 0.04142;
+    --amber-d-300: 0.05201;
+    --amber-d-400: 0.05505;
+    --amber-d-500: 0.05285;
+    --amber-d-600: 0.04598;
+    --amber-d-700: 0.03738;
+    --amber-d-800: 0.02792;
+    --amber-d-900: 0.02061;
+    --amber-d-950: 0.01655;
+    --amber-d-1000: 0.01243;
     --yellow-hue: 101.25;
     --yellow-chroma: 1.22;
-    --yellow-d-0: 0.01573;
-    --yellow-d-50: 0.02134;
-    --yellow-d-100: 0.03269;
-    --yellow-d-200: 0.04679;
-    --yellow-d-300: 0.06246;
-    --yellow-d-400: 0.0699;
-    --yellow-d-500: 0.06893;
-    --yellow-d-600: 0.06009;
-    --yellow-d-700: 0.04794;
-    --yellow-d-800: 0.03397;
-    --yellow-d-900: 0.02502;
-    --yellow-d-950: 0.02107;
-    --yellow-d-1000: 0.01496;
+    --yellow-d-0: 0.01633;
+    --yellow-d-50: 0.02214;
+    --yellow-d-100: 0.03386;
+    --yellow-d-200: 0.04834;
+    --yellow-d-300: 0.0643;
+    --yellow-d-400: 0.07173;
+    --yellow-d-500: 0.07062;
+    --yellow-d-600: 0.06155;
+    --yellow-d-700: 0.04916;
+    --yellow-d-800: 0.03495;
+    --yellow-d-900: 0.02574;
+    --yellow-d-950: 0.02162;
+    --yellow-d-1000: 0.0154;
     --lime-hue: 123.75;
     --lime-chroma: 1.14;
-    --lime-d-0: 0.00645;
-    --lime-d-50: 0.00867;
-    --lime-d-100: 0.01303;
-    --lime-d-200: 0.01822;
-    --lime-d-300: 0.02377;
-    --lime-d-400: 0.02629;
-    --lime-d-500: 0.02585;
-    --lime-d-600: 0.02253;
-    --lime-d-700: 0.01801;
-    --lime-d-800: 0.01288;
-    --lime-d-900: 0.00949;
-    --lime-d-950: 0.00792;
-    --lime-d-1000: 0.00569;
+    --lime-d-0: 0.00705;
+    --lime-d-50: 0.00947;
+    --lime-d-100: 0.0142;
+    --lime-d-200: 0.01978;
+    --lime-d-300: 0.02562;
+    --lime-d-400: 0.02812;
+    --lime-d-500: 0.02754;
+    --lime-d-600: 0.024;
+    --lime-d-700: 0.01923;
+    --lime-d-800: 0.01386;
+    --lime-d-900: 0.01022;
+    --lime-d-950: 0.00847;
+    --lime-d-1000: 0.00613;
     --green-hue: 146.25;
-    --green-chroma: 0.96;
-    --green-d-0: -0.00084;
-    --green-d-50: -0.00118;
-    --green-d-100: -0.00191;
-    --green-d-200: -0.00293;
-    --green-d-300: -0.00424;
-    --green-d-400: -0.00508;
-    --green-d-500: -0.00517;
-    --green-d-600: -0.00452;
-    --green-d-700: -0.00352;
-    --green-d-800: -0.00234;
-    --green-d-900: -0.00172;
-    --green-d-950: -0.00153;
-    --green-d-1000: -0.00102;
+    --green-chroma: 1.19;
+    --green-d-0: -0.00212;
+    --green-d-50: -0.00289;
+    --green-d-100: -0.0045;
+    --green-d-200: -0.00662;
+    --green-d-300: -0.00924;
+    --green-d-400: -0.01082;
+    --green-d-500: -0.01092;
+    --green-d-600: -0.00954;
+    --green-d-700: -0.00748;
+    --green-d-800: -0.00508;
+    --green-d-900: -0.00373;
+    --green-d-950: -0.00327;
+    --green-d-1000: -0.00222;
     --emerald-hue: 168.75;
     --emerald-chroma: 0.81;
-    --emerald-d-0: -0.00217;
-    --emerald-d-50: -0.00293;
-    --emerald-d-100: -0.00447;
-    --emerald-d-200: -0.0064;
-    --emerald-d-300: -0.00862;
-    --emerald-d-400: -0.00981;
-    --emerald-d-500: -0.00979;
-    --emerald-d-600: -0.00854;
-    --emerald-d-700: -0.00676;
-    --emerald-d-800: -0.0047;
-    --emerald-d-900: -0.00346;
-    --emerald-d-950: -0.00296;
-    --emerald-d-1000: -0.00206;
+    --emerald-d-0: -0.00157;
+    --emerald-d-50: -0.00213;
+    --emerald-d-100: -0.0033;
+    --emerald-d-200: -0.00484;
+    --emerald-d-300: -0.00677;
+    --emerald-d-400: -0.00798;
+    --emerald-d-500: -0.0081;
+    --emerald-d-600: -0.00708;
+    --emerald-d-700: -0.00553;
+    --emerald-d-800: -0.00373;
+    --emerald-d-900: -0.00274;
+    --emerald-d-950: -0.00241;
+    --emerald-d-1000: -0.00162;
     --cyan-hue: 191.25;
     --cyan-chroma: 0.68;
-    --cyan-d-0: -0.00125;
-    --cyan-d-50: -0.00167;
-    --cyan-d-100: -0.0025;
-    --cyan-d-200: -0.00349;
-    --cyan-d-300: -0.00457;
-    --cyan-d-400: -0.0051;
-    --cyan-d-500: -0.00505;
-    --cyan-d-600: -0.0044;
-    --cyan-d-700: -0.0035;
-    --cyan-d-800: -0.00248;
-    --cyan-d-900: -0.00183;
-    --cyan-d-950: -0.00154;
-    --cyan-d-1000: -0.00109;
+    --cyan-d-0: -0.00065;
+    --cyan-d-50: -0.00087;
+    --cyan-d-100: -0.00133;
+    --cyan-d-200: -0.00194;
+    --cyan-d-300: -0.00273;
+    --cyan-d-400: -0.00327;
+    --cyan-d-500: -0.00336;
+    --cyan-d-600: -0.00293;
+    --cyan-d-700: -0.00228;
+    --cyan-d-800: -0.00151;
+    --cyan-d-900: -0.00111;
+    --cyan-d-950: -0.00099;
+    --cyan-d-1000: -0.00065;
     --teal-hue: 213.75;
     --teal-chroma: 0.69;
-    --teal-d-0: -0.002;
-    --teal-d-50: -0.00267;
-    --teal-d-100: -0.00396;
-    --teal-d-200: -0.00547;
-    --teal-d-300: -0.00705;
-    --teal-d-400: -0.00777;
-    --teal-d-500: -0.00764;
-    --teal-d-600: -0.00666;
-    --teal-d-700: -0.00532;
-    --teal-d-800: -0.00382;
-    --teal-d-900: -0.00281;
-    --teal-d-950: -0.00234;
-    --teal-d-1000: -0.00169;
+    --teal-d-0: -0.00141;
+    --teal-d-50: -0.00188;
+    --teal-d-100: -0.00279;
+    --teal-d-200: -0.00391;
+    --teal-d-300: -0.0052;
+    --teal-d-400: -0.00594;
+    --teal-d-500: -0.00596;
+    --teal-d-600: -0.0052;
+    --teal-d-700: -0.0041;
+    --teal-d-800: -0.00284;
+    --teal-d-900: -0.00209;
+    --teal-d-950: -0.00179;
+    --teal-d-1000: -0.00125;
     --sky-hue: 236.25;
     --sky-chroma: 0.77;
-    --sky-d-0: -0.00395;
-    --sky-d-50: -0.0053;
-    --sky-d-100: -0.00795;
-    --sky-d-200: -0.0111;
-    --sky-d-300: -0.01445;
-    --sky-d-400: -0.01597;
-    --sky-d-500: -0.0157;
-    --sky-d-600: -0.01368;
-    --sky-d-700: -0.01094;
-    --sky-d-800: -0.00783;
-    --sky-d-900: -0.00577;
-    --sky-d-950: -0.00481;
-    --sky-d-1000: -0.00346;
+    --sky-d-0: -0.00335;
+    --sky-d-50: -0.0045;
+    --sky-d-100: -0.00678;
+    --sky-d-200: -0.00954;
+    --sky-d-300: -0.01261;
+    --sky-d-400: -0.01414;
+    --sky-d-500: -0.01401;
+    --sky-d-600: -0.01222;
+    --sky-d-700: -0.00971;
+    --sky-d-800: -0.00686;
+    --sky-d-900: -0.00505;
+    --sky-d-950: -0.00426;
+    --sky-d-1000: -0.00302;
     --blue-hue: 258.75;
-    --blue-chroma: 1.1;
-    --blue-d-0: -0.00946;
-    --blue-d-50: -0.01265;
-    --blue-d-100: -0.01874;
-    --blue-d-200: -0.02553;
-    --blue-d-300: -0.0318;
-    --blue-d-400: -0.03345;
-    --blue-d-500: -0.03203;
-    --blue-d-600: -0.02786;
-    --blue-d-700: -0.02269;
-    --blue-d-800: -0.01704;
-    --blue-d-900: -0.01258;
-    --blue-d-950: -0.01005;
-    --blue-d-1000: -0.0076;
+    --blue-chroma: 1.6;
+    --blue-d-0: -0.0161;
+    --blue-d-50: -0.02136;
+    --blue-d-100: -0.03107;
+    --blue-d-200: -0.04102;
+    --blue-d-300: -0.04836;
+    --blue-d-400: -0.04793;
+    --blue-d-500: -0.04441;
+    --blue-d-600: -0.03854;
+    --blue-d-700: -0.03213;
+    --blue-d-800: -0.02558;
+    --blue-d-900: -0.01893;
+    --blue-d-950: -0.01437;
+    --blue-d-1000: -0.01154;
     --indigo-hue: 281.25;
     --indigo-chroma: 1.26;
-    --indigo-d-0: -0.01141;
-    --indigo-d-50: -0.01512;
-    --indigo-d-100: -0.02195;
-    --indigo-d-200: -0.02897;
-    --indigo-d-300: -0.03431;
-    --indigo-d-400: -0.03428;
-    --indigo-d-500: -0.03194;
-    --indigo-d-600: -0.02773;
-    --indigo-d-700: -0.02302;
-    --indigo-d-800: -0.01818;
-    --indigo-d-900: -0.01345;
-    --indigo-d-950: -0.01028;
-    --indigo-d-1000: -0.00819;
+    --indigo-d-0: -0.01081;
+    --indigo-d-50: -0.01432;
+    --indigo-d-100: -0.02078;
+    --indigo-d-200: -0.02741;
+    --indigo-d-300: -0.03246;
+    --indigo-d-400: -0.03246;
+    --indigo-d-500: -0.03025;
+    --indigo-d-600: -0.02626;
+    --indigo-d-700: -0.0218;
+    --indigo-d-800: -0.0172;
+    --indigo-d-900: -0.01273;
+    --indigo-d-950: -0.00974;
+    --indigo-d-1000: -0.00775;
     --violet-hue: 303.75;
     --violet-chroma: 1.26;
-    --violet-d-0: -0.00912;
-    --violet-d-50: -0.01197;
-    --violet-d-100: -0.01709;
-    --violet-d-200: -0.02206;
-    --violet-d-300: -0.02541;
-    --violet-d-400: -0.02478;
-    --violet-d-500: -0.02281;
-    --violet-d-600: -0.01979;
-    --violet-d-700: -0.01657;
-    --violet-d-800: -0.01339;
-    --violet-d-900: -0.00991;
-    --violet-d-950: -0.00743;
-    --violet-d-1000: -0.00606;
+    --violet-d-0: -0.00852;
+    --violet-d-50: -0.01117;
+    --violet-d-100: -0.01592;
+    --violet-d-200: -0.0205;
+    --violet-d-300: -0.02356;
+    --violet-d-400: -0.02296;
+    --violet-d-500: -0.02112;
+    --violet-d-600: -0.01832;
+    --violet-d-700: -0.01535;
+    --violet-d-800: -0.01241;
+    --violet-d-900: -0.00919;
+    --violet-d-950: -0.00688;
+    --violet-d-1000: -0.00562;
     --purple-hue: 326.25;
     --purple-chroma: 1.27;
-    --purple-d-0: -0.00588;
-    --purple-d-50: -0.00764;
-    --purple-d-100: -0.01068;
-    --purple-d-200: -0.01342;
-    --purple-d-300: -0.01496;
-    --purple-d-400: -0.01419;
-    --purple-d-500: -0.01289;
-    --purple-d-600: -0.01117;
-    --purple-d-700: -0.00944;
-    --purple-d-800: -0.00783;
-    --purple-d-900: -0.00581;
-    --purple-d-950: -0.00425;
-    --purple-d-1000: -0.00357;
+    --purple-d-0: -0.00528;
+    --purple-d-50: -0.00684;
+    --purple-d-100: -0.00951;
+    --purple-d-200: -0.01187;
+    --purple-d-300: -0.01312;
+    --purple-d-400: -0.01237;
+    --purple-d-500: -0.0112;
+    --purple-d-600: -0.0097;
+    --purple-d-700: -0.00822;
+    --purple-d-800: -0.00685;
+    --purple-d-900: -0.00508;
+    --purple-d-950: -0.0037;
+    --purple-d-1000: -0.00312;
     --fuchsia-hue: 348.75;
     --fuchsia-chroma: 1.36;
-    --fuchsia-d-0: -0.00558;
-    --fuchsia-d-50: -0.00735;
-    --fuchsia-d-100: -0.01062;
-    --fuchsia-d-200: -0.01406;
-    --fuchsia-d-300: -0.01708;
-    --fuchsia-d-400: -0.01778;
-    --fuchsia-d-500: -0.017;
-    --fuchsia-d-600: -0.01479;
-    --fuchsia-d-700: -0.01205;
-    --fuchsia-d-800: -0.00913;
-    --fuchsia-d-900: -0.00674;
-    --fuchsia-d-950: -0.00535;
-    --fuchsia-d-1000: -0.00408;
+    --fuchsia-d-0: -0.00498;
+    --fuchsia-d-50: -0.00655;
+    --fuchsia-d-100: -0.00945;
+    --fuchsia-d-200: -0.01251;
+    --fuchsia-d-300: -0.01524;
+    --fuchsia-d-400: -0.01596;
+    --fuchsia-d-500: -0.01531;
+    --fuchsia-d-600: -0.01332;
+    --fuchsia-d-700: -0.01083;
+    --fuchsia-d-800: -0.00815;
+    --fuchsia-d-900: -0.00602;
+    --fuchsia-d-950: -0.0048;
+    --fuchsia-d-1000: -0.00364;
     --pink-hue: 0;
     --pink-chroma: 0.8;
-    --pink-d-0: -0.00032;
-    --pink-d-50: -0.00046;
-    --pink-d-100: -0.0008;
-    --pink-d-200: -0.00131;
-    --pink-d-300: -0.00201;
-    --pink-d-400: -0.0025;
-    --pink-d-500: -0.00257;
-    --pink-d-600: -0.00225;
-    --pink-d-700: -0.00174;
-    --pink-d-800: -0.00112;
-    --pink-d-900: -0.00082;
-    --pink-d-950: -0.00076;
-    --pink-d-1000: -0.00048;
+    --pink-d-0: 0.00028;
+    --pink-d-50: 0.00034;
+    --pink-d-100: 0.00037;
+    --pink-d-200: 0.00025;
+    --pink-d-300: -0.00017;
+    --pink-d-400: -0.00067;
+    --pink-d-500: -0.00089;
+    --pink-d-600: -0.00079;
+    --pink-d-700: -0.00052;
+    --pink-d-800: -0.00015;
+    --pink-d-900: -0.0001;
+    --pink-d-950: -0.00021;
+    --pink-d-1000: -0.00004;
     --base-gray-0: oklch(var(--L-0) 0 0);
     --base-gray-50: oklch(var(--L-50) 0 0);
     --base-gray-100: oklch(var(--L-100) 0 0);
@@ -749,7 +737,7 @@
     --color-ink-pink-900: light-dark(var(--base-pink-900), var(--base-pink-100));
     --color-ink-pink-950: light-dark(var(--base-pink-950), var(--base-pink-50));
     --color-ink-pink-1000: light-dark(var(--base-pink-1000), var(--base-pink-0));
-    --color-border: light-dark(var(--base-gray-600), var(--base-gray-800));
+    --color-border: light-dark(oklch(var(--L-1000) 0 0 / 0.12), oklch(var(--L-0) 0 0 / 0.12));
   }
 }
 @layer base {
@@ -924,9 +912,6 @@
   .static {
     position: static;
   }
-  .mt-1 {
-    margin-top: var(--spacing);
-  }
   .mt-2 {
     margin-top: calc(var(--spacing) * 2);
   }
@@ -939,9 +924,6 @@
   .mt-8 {
     margin-top: calc(var(--spacing) * 8);
   }
-  .mr-0\.5 {
-    margin-right: calc(var(--spacing) * 0.5);
-  }
   .mb-2 {
     margin-bottom: calc(var(--spacing) * 2);
   }
@@ -953,9 +935,6 @@
   }
   .-ml-1 {
     margin-left: calc(var(--spacing) * -1);
-  }
-  .ml-2 {
-    margin-left: calc(var(--spacing) * 2);
   }
   .ml-auto {
     margin-left: auto;
@@ -981,9 +960,9 @@
   .table {
     display: table;
   }
-  .size-5 {
-    width: calc(var(--spacing) * 5);
-    height: calc(var(--spacing) * 5);
+  .size-3\.5 {
+    width: calc(var(--spacing) * 3.5);
+    height: calc(var(--spacing) * 3.5);
   }
   .h-5 {
     height: calc(var(--spacing) * 5);
@@ -1042,9 +1021,11 @@
   .gap-8 {
     gap: calc(var(--spacing) * 8);
   }
-  .divide-ink-gray-200 {
+  .space-x-0\.5 {
     :where(& > :not(:last-child)) {
-      border-color: var(--color-ink-gray-200);
+      --tw-space-x-reverse: 0;
+      margin-inline-start: calc(calc(var(--spacing) * 0.5) * var(--tw-space-x-reverse));
+      margin-inline-end: calc(calc(var(--spacing) * 0.5) * calc(1 - var(--tw-space-x-reverse)));
     }
   }
   .self-center {
@@ -1062,17 +1043,24 @@
   .rounded-lg {
     border-radius: var(--radius-lg);
   }
+  .border {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+  }
+  .border-ink-green-500\/30 {
+    border-color: color-mix(in srgb, oklch(calc(var(--L-500) + var(--green-d-500, 0) + var(--green-taste, 0)) calc(var(--chroma-500) * var(--green-chroma, 1)) var(--green-hue)) 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-ink-green-500) 30%, transparent);
+    }
+  }
+  .border-red-500\/30 {
+    border-color: color-mix(in srgb, oklch(63.7% 0.237 25.331) 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-red-500) 30%, transparent);
+    }
+  }
   .bg-ink-cyan-200 {
     background-color: var(--color-ink-cyan-200);
-  }
-  .bg-ink-gray-100 {
-    background-color: var(--color-ink-gray-100);
-  }
-  .bg-ink-green-100 {
-    background-color: var(--color-ink-green-100);
-  }
-  .bg-ink-red-100 {
-    background-color: var(--color-ink-red-100);
   }
   .p-2 {
     padding: calc(var(--spacing) * 2);
@@ -1080,14 +1068,14 @@
   .p-6 {
     padding: calc(var(--spacing) * 6);
   }
+  .p-8 {
+    padding: calc(var(--spacing) * 8);
+  }
   .p-12 {
     padding: calc(var(--spacing) * 12);
   }
   .px-2 {
     padding-inline: calc(var(--spacing) * 2);
-  }
-  .px-2\.5 {
-    padding-inline: calc(var(--spacing) * 2.5);
   }
   .px-3 {
     padding-inline: calc(var(--spacing) * 3);
@@ -1095,17 +1083,14 @@
   .px-4 {
     padding-inline: calc(var(--spacing) * 4);
   }
-  .py-0\.5 {
-    padding-block: calc(var(--spacing) * 0.5);
+  .px-8 {
+    padding-inline: calc(var(--spacing) * 8);
   }
   .py-1 {
     padding-block: var(--spacing);
   }
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
-  }
-  .py-5 {
-    padding-block: calc(var(--spacing) * 5);
   }
   .text-right {
     text-align: right;
@@ -1120,10 +1105,6 @@
   .text-base {
     font-size: var(--text-base);
     line-height: var(--tw-leading, var(--text-base--line-height));
-  }
-  .text-sm {
-    font-size: var(--text-sm);
-    line-height: var(--tw-leading, var(--text-sm--line-height));
   }
   .text-xl {
     font-size: var(--text-xl);
@@ -1142,14 +1123,6 @@
   .font-bold {
     --tw-font-weight: var(--font-weight-bold);
     font-weight: var(--font-weight-bold);
-  }
-  .font-medium {
-    --tw-font-weight: var(--font-weight-medium);
-    font-weight: var(--font-weight-medium);
-  }
-  .font-normal {
-    --tw-font-weight: var(--font-weight-normal);
-    font-weight: var(--font-weight-normal);
   }
   .inks-\[hotpink\] {
     --bg: hotpink;
@@ -2486,23 +2459,11 @@
   .text-ink-cyan-950 {
     color: var(--color-ink-cyan-950);
   }
-  .text-ink-gray-600 {
-    color: var(--color-ink-gray-600);
+  .text-ink-green-500 {
+    color: var(--color-ink-green-500);
   }
-  .text-ink-gray-900 {
-    color: var(--color-ink-gray-900);
-  }
-  .text-ink-gray-1000 {
-    color: var(--color-ink-gray-1000);
-  }
-  .text-ink-green-600 {
-    color: var(--color-ink-green-600);
-  }
-  .text-ink-indigo-600 {
-    color: var(--color-ink-indigo-600);
-  }
-  .text-ink-red-600 {
-    color: var(--color-ink-red-600);
+  .text-ink-red-500 {
+    color: var(--color-ink-red-500);
   }
   .text-ink-violet-800\/50 {
     color: color-mix(in srgb, light-dark(var(--base-violet-800), var(--base-violet-200)) 50%, transparent);
@@ -2516,23 +2477,6 @@
   .shadow {
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
-  .inset-ring {
-    --tw-inset-ring-shadow: inset 0 0 0 1px var(--tw-inset-ring-color, currentcolor);
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
-  .inset-ring-ink-gray-200 {
-    --tw-inset-ring-color: var(--color-ink-gray-200);
-  }
-  .hover\:inks-green-500 {
-    &:hover {
-      @media (hover: hover) {
-        --bg: var(--color-ink-green-500);
-        background: var(--bg);
-        --fg: contrast-color(var(--bg));
-        color: var(--fg);
-      }
-    }
   }
   .hover\:inks-green-600 {
     &:hover {
@@ -2552,16 +2496,6 @@
         --fg: contrast-color(var(--bg));
         color: var(--fg);
       }
-    }
-  }
-  .sm\:p-6 {
-    @media (width >= 40rem) {
-      padding: calc(var(--spacing) * 6);
-    }
-  }
-  .md\:mt-2 {
-    @media (width >= 48rem) {
-      margin-top: calc(var(--spacing) * 2);
     }
   }
   .md\:block {
@@ -2605,11 +2539,6 @@
       padding: calc(var(--spacing) * 10);
     }
   }
-  .lg\:mt-0 {
-    @media (width >= 64rem) {
-      margin-top: 0;
-    }
-  }
   .lg\:flex {
     @media (width >= 64rem) {
       display: flex;
@@ -2625,6 +2554,32 @@
   :root {
     color-scheme: light dark;
   }
+  *, ::before, ::after {
+    border-color: var(--color-border);
+  }
+}
+@font-face {
+  font-family: "Alliance";
+  src: url("../fonts/alliance.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Alliance";
+  src: url("../fonts/alliance-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@layer base {
+  :root {
+    --paper: light-dark(white, black);
+  }
+  body {
+    background: var(--paper);
+    color: contrast-color(var(--paper));
+  }
   b {
     display: block;
     font-weight: unset;
@@ -2634,12 +2589,15 @@
     text-decoration: unset;
   }
 }
-:root {
-  --paper: light-dark(white, black);
+@property --tw-space-x-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
 }
-body {
-  background: var(--paper);
-  color: contrast-color(var(--paper));
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
 }
 @property --tw-font-weight {
   syntax: "*";
@@ -2715,11 +2673,6 @@ body {
   inherits: false;
   initial-value: 0;
 }
-@property --tw-border-style {
-  syntax: "*";
-  inherits: false;
-  initial-value: solid;
-}
 @property --tw-divide-y-reverse {
   syntax: "*";
   inherits: false;
@@ -2728,6 +2681,8 @@ body {
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
+      --tw-space-x-reverse: 0;
+      --tw-border-style: solid;
       --tw-font-weight: initial;
       --tw-shadow: 0 0 #0000;
       --tw-shadow-color: initial;
@@ -2744,7 +2699,6 @@ body {
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
       --tw-divide-x-reverse: 0;
-      --tw-border-style: solid;
       --tw-divide-y-reverse: 0;
       --bg: transparent;
     }

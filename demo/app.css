@@ -1,14 +1,46 @@
 @import "tailwindcss";
 @import "../inks.css";
 
-/* The matrix is composed at runtime in main.js; Tailwind scans
-   source text, so runtime-composed names are safelisted here. */
-@source inline("inks-{gray,red,orange,amber,yellow,lime,green,emerald,cyan,teal,sky,blue,indigo,violet,purple,fuchsia,pink}-{0,50,100,200,300,400,500,600,700,800,900,950,1000}");
-@source inline("{hover:,}inks-green-{500,600,700}");
+/* Alliance — self-hosted, wired as the default sans. */
+@font-face {
+  font-family: "Alliance";
+  src: url("../fonts/alliance.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Alliance";
+  src: url("../fonts/alliance-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
-/* Bench backdrop — true white/black, the absence of ink. Deliberately
-   outside the system (doctrine §3): the poles are where near-pole hues
-   get judged during tuning. The plugin asserts no white/black; --paper
-   is bench chrome, not canon. fg stays derived, here against paper. */
-:root { --paper: light-dark(white, black); }
-body { background: var(--paper); color: contrast-color(var(--paper)); }
+@theme {
+  --font-sans: "Alliance", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* The matrix is composed at runtime in main.js; Tailwind scans source text, so runtime-composed names are safelisted here. */
+@source inline("inks-{gray,red,orange,amber,yellow,lime,green,emerald,cyan,teal,sky,blue,indigo,violet,purple,fuchsia,pink}-{0,50,100,200,300,400,500,600,700,800,900,950,1000}");
+
+
+@layer base {
+   :root {
+      --paper: light-dark(white, black);
+    }
+
+   body {
+      background: var(--paper); color: contrast-color(var(--paper));
+   }
+
+   b {
+      display: block;
+      font-weight: unset;
+   }
+
+   s {
+      display: inline;
+      text-decoration: unset;
+   }
+}

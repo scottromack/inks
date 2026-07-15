@@ -117,7 +117,7 @@ for (const fam of famNames) {
 }
 push();
 push(`  /* SEMANTIC */`);
-push(`  --color-border: light-dark(var(--base-gray-600), var(--base-gray-800));`);
+push(`  --color-border: light-dark(oklch(var(--L-1000) 0 0 / 0.12), oklch(var(--L-0) 0 0 / 0.12));`);
 push(`}`);
 push();
 
@@ -137,6 +137,7 @@ push(`@layer base {`);
 push(`  :root {`);
 push(`    color-scheme: light dark;`);
 push(`  }`);
+push(`  *, ::before, ::after { border-color: var(--color-border); }`);
 push(`}`);
 push();
 
