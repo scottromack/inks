@@ -1,0 +1,40 @@
+{
+  "name": "@mus/inks",
+  "version": "0.1.0",
+  "description": "INKs — an OKLCH ink system for Tailwind v4. One spine, one curve, N hues. Dark mode by involution; fg derived via contrast-color(). Intent canonical, CSS generated.",
+  "type": "module",
+  "exports": {
+    ".": "./inks.css",
+    "./intent": "./inks.intent.mjs"
+  },
+  "files": [
+    "inks.css",
+    "inks.intent.mjs",
+    "generate.mjs",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "node generate.mjs",
+    "demo": "tailwindcss -i demo/app.css -o demo/dist.css --watch",
+    "demo:build": "tailwindcss -i demo/app.css -o demo/dist.css",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "tailwindcss": ">=4.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.2",
+    "tailwindcss": "^4.3.2"
+  },
+  "keywords": [
+    "tailwindcss",
+    "tailwind-plugin",
+    "oklch",
+    "design-tokens",
+    "color",
+    "dark-mode",
+    "contrast-color"
+  ],
+  "license": "Apache-2.0"
+}

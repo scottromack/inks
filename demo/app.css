@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@import "../inks.css";
+
+/* The matrix is composed at runtime in main.js; Tailwind scans
+   source text, so runtime-composed names are safelisted here. */
+@source inline("inks-{gray,red,orange,amber,yellow,lime,green,emerald,cyan,teal,sky,blue,indigo,violet,purple,fuchsia,pink}-{0,50,100,200,300,400,500,600,700,800,900,950,1000}");
+@source inline("{hover:,}inks-green-{500,600,700}");
+
+/* Bench backdrop — true white/black, the absence of ink. Deliberately
+   outside the system (doctrine §3): the poles are where near-pole hues
+   get judged during tuning. The plugin asserts no white/black; --paper
+   is bench chrome, not canon. fg stays derived, here against paper. */
+:root { --paper: light-dark(white, black); }
+body { background: var(--paper); color: contrast-color(var(--paper)); }

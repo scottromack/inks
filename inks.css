@@ -1,0 +1,620 @@
+/* ============================================================
+   inks.css — @generated from inks.intent.mjs. DO NOT EDIT.
+   Regenerate: node generate.mjs
+
+   Ink  = pigment (single resolved color, light/dark aware)
+   Inks = surface (bg + DERIVED fg via contrast-color)
+
+   16 hue families + gray (the lightness axis) x 13 steps.
+   Dark mode = the involution step <-> 1000-step; 500 fixed.
+   Endpoints 0/1000 are off-pole: derived like every other
+   step. Nothing in this file is asserted except the intent.
+   ============================================================ */
+
+@theme {
+  /* LIGHTNESS (L per step) */
+  --L-0: 0.995;
+  --L-50: 0.982;
+  --L-100: 0.962;
+  --L-200: 0.925;
+  --L-300: 0.871;
+  --L-400: 0.792;
+  --L-500: 0.723;
+  --L-600: 0.627;
+  --L-700: 0.527;
+  --L-800: 0.448;
+  --L-900: 0.353;
+  --L-950: 0.237;
+  --L-1000: 0.187;
+
+  /* CHROMA (C per step) */
+  --chroma-0: 0.043;
+  --chroma-50: 0.058;
+  --chroma-100: 0.088;
+  --chroma-200: 0.125;
+  --chroma-300: 0.167;
+  --chroma-400: 0.222;
+  --chroma-500: 0.292;
+  --chroma-600: 0.226;
+  --chroma-700: 0.142;
+  --chroma-800: 0.104;
+  --chroma-900: 0.082;
+  --chroma-950: 0.065;
+  --chroma-1000: 0.04;
+
+  /* HUES === a family is a name/hue pair.
+     --{fam}-chroma : fader (var(--{fam}-chroma, 1)) — declared to depart.
+     --{fam}-hk     : Helmholtz-Kohlrausch CORRECTION coefficient
+                      (Nayatani 1997) — perceptual uniformity, science.
+     --{fam}-taste  : aesthetic lightness offset — preference, not science.
+     Effective L = spine + hk*chroma + taste, all live in CSS calc.
+     Gray is not a family — it is the lightness axis, rendered. */
+  --red-hue: 22.5;
+  --red-chroma: 1.1;
+  --red-hk: -0.055;
+  --orange-hue: 45;
+  --orange-hk: -0.011;
+  --amber-hue: 67.5;
+  --amber-chroma: 0.86;
+  --amber-hk: 0.128;
+  --yellow-hue: 90;
+  --yellow-chroma: 0.96;
+  --yellow-hk: 0.277;
+  --lime-hue: 112.5;
+  --lime-chroma: 1.09;
+  --lime-hk: 0.253;
+  --green-hue: 135;
+  --green-chroma: 0.96;
+  --green-hk: 0.035;
+  --emerald-hue: 157.5;
+  --emerald-chroma: 0.81;
+  --emerald-hk: -0.075;
+  --cyan-hue: 180;
+  --cyan-chroma: 0.68;
+  --cyan-hk: -0.099;
+  --teal-hue: 202.5;
+  --teal-chroma: 0.69;
+  --teal-hk: -0.101;
+  --sky-hue: 225;
+  --sky-chroma: 0.77;
+  --sky-hk: -0.122;
+  --blue-hue: 247.5;
+  --blue-chroma: 1.1;
+  --blue-hk: -0.1;
+  --indigo-hue: 270;
+  --indigo-chroma: 1.2;
+  --indigo-hk: -0.059;
+  --violet-hue: 292.5;
+  --violet-chroma: 1.2;
+  --violet-hk: -0.029;
+  --purple-hue: 315;
+  --purple-chroma: 1.2;
+  --purple-hk: -0.001;
+  --fuchsia-hue: 337.5;
+  --fuchsia-chroma: 1.2;
+  --fuchsia-hk: 0.008;
+  --pink-hue: 360;
+  --pink-chroma: 0.8;
+  --pink-hk: -0.049;
+
+  /* ===========================================
+     BASE: lightness L x (chroma C x fader x gamut) x hue.
+     Live: edit --chroma-500 in devtools and every
+     500 across all families follows.
+     =========================================== */
+
+  --base-gray-0: oklch(var(--L-0) 0 0);
+  --base-gray-50: oklch(var(--L-50) 0 0);
+  --base-gray-100: oklch(var(--L-100) 0 0);
+  --base-gray-200: oklch(var(--L-200) 0 0);
+  --base-gray-300: oklch(var(--L-300) 0 0);
+  --base-gray-400: oklch(var(--L-400) 0 0);
+  --base-gray-500: oklch(var(--L-500) 0 0);
+  --base-gray-600: oklch(var(--L-600) 0 0);
+  --base-gray-700: oklch(var(--L-700) 0 0);
+  --base-gray-800: oklch(var(--L-800) 0 0);
+  --base-gray-900: oklch(var(--L-900) 0 0);
+  --base-gray-950: oklch(var(--L-950) 0 0);
+  --base-gray-1000: oklch(var(--L-1000) 0 0);
+
+  --base-red-0: oklch(calc(var(--L-0) + var(--red-hk, 0) * var(--chroma-0) * var(--red-chroma, 1) + var(--red-taste, 0)) calc(var(--chroma-0) * var(--red-chroma, 1)) var(--red-hue));
+  --base-red-50: oklch(calc(var(--L-50) + var(--red-hk, 0) * var(--chroma-50) * var(--red-chroma, 1) + var(--red-taste, 0)) calc(var(--chroma-50) * var(--red-chroma, 1)) var(--red-hue));
+  --base-red-100: oklch(calc(var(--L-100) + var(--red-hk, 0) * var(--chroma-100) * var(--red-chroma, 1) + var(--red-taste, 0)) calc(var(--chroma-100) * var(--red-chroma, 1)) var(--red-hue));
+  --base-red-200: oklch(calc(var(--L-200) + var(--red-hk, 0) * var(--chroma-200) * var(--red-chroma, 1) + var(--red-taste, 0)) calc(var(--chroma-200) * var(--red-chroma, 1)) var(--red-hue));
+  --base-red-300: oklch(calc(var(--L-300) + var(--red-hk, 0) * var(--chroma-300) * var(--red-chroma, 1) + var(--red-taste, 0)) calc(var(--chroma-300) * var(--red-chroma, 1)) var(--red-hue));
+  --base-red-400: oklch(calc(var(--L-400) + var(--red-hk, 0) * var(--chroma-400) * var(--red-chroma, 1) + var(--red-taste, 0)) calc(var(--chroma-400) * var(--red-chroma, 1)) var(--red-hue));
+  --base-red-500: oklch(calc(var(--L-500) + var(--red-hk, 0) * var(--chroma-500) * var(--red-chroma, 1) + var(--red-taste, 0)) calc(var(--chroma-500) * var(--red-chroma, 1)) var(--red-hue));
+  --base-red-600: oklch(calc(var(--L-600) + var(--red-hk, 0) * var(--chroma-600) * var(--red-chroma, 1) + var(--red-taste, 0)) calc(var(--chroma-600) * var(--red-chroma, 1)) var(--red-hue));
+  --base-red-700: oklch(calc(var(--L-700) + var(--red-hk, 0) * var(--chroma-700) * var(--red-chroma, 1) + var(--red-taste, 0)) calc(var(--chroma-700) * var(--red-chroma, 1)) var(--red-hue));
+  --base-red-800: oklch(calc(var(--L-800) + var(--red-hk, 0) * var(--chroma-800) * var(--red-chroma, 1) + var(--red-taste, 0)) calc(var(--chroma-800) * var(--red-chroma, 1)) var(--red-hue));
+  --base-red-900: oklch(calc(var(--L-900) + var(--red-hk, 0) * var(--chroma-900) * var(--red-chroma, 1) + var(--red-taste, 0)) calc(var(--chroma-900) * var(--red-chroma, 1)) var(--red-hue));
+  --base-red-950: oklch(calc(var(--L-950) + var(--red-hk, 0) * var(--chroma-950) * var(--red-chroma, 1) + var(--red-taste, 0)) calc(var(--chroma-950) * var(--red-chroma, 1)) var(--red-hue));
+  --base-red-1000: oklch(calc(var(--L-1000) + var(--red-hk, 0) * var(--chroma-1000) * var(--red-chroma, 1) + var(--red-taste, 0)) calc(var(--chroma-1000) * var(--red-chroma, 1)) var(--red-hue));
+
+  --base-orange-0: oklch(calc(var(--L-0) + var(--orange-hk, 0) * var(--chroma-0) * var(--orange-chroma, 1) + var(--orange-taste, 0)) calc(var(--chroma-0) * var(--orange-chroma, 1)) var(--orange-hue));
+  --base-orange-50: oklch(calc(var(--L-50) + var(--orange-hk, 0) * var(--chroma-50) * var(--orange-chroma, 1) + var(--orange-taste, 0)) calc(var(--chroma-50) * var(--orange-chroma, 1)) var(--orange-hue));
+  --base-orange-100: oklch(calc(var(--L-100) + var(--orange-hk, 0) * var(--chroma-100) * var(--orange-chroma, 1) + var(--orange-taste, 0)) calc(var(--chroma-100) * var(--orange-chroma, 1)) var(--orange-hue));
+  --base-orange-200: oklch(calc(var(--L-200) + var(--orange-hk, 0) * var(--chroma-200) * var(--orange-chroma, 1) + var(--orange-taste, 0)) calc(var(--chroma-200) * var(--orange-chroma, 1)) var(--orange-hue));
+  --base-orange-300: oklch(calc(var(--L-300) + var(--orange-hk, 0) * var(--chroma-300) * var(--orange-chroma, 1) + var(--orange-taste, 0)) calc(var(--chroma-300) * var(--orange-chroma, 1)) var(--orange-hue));
+  --base-orange-400: oklch(calc(var(--L-400) + var(--orange-hk, 0) * var(--chroma-400) * var(--orange-chroma, 1) + var(--orange-taste, 0)) calc(var(--chroma-400) * var(--orange-chroma, 1)) var(--orange-hue));
+  --base-orange-500: oklch(calc(var(--L-500) + var(--orange-hk, 0) * var(--chroma-500) * var(--orange-chroma, 1) + var(--orange-taste, 0)) calc(var(--chroma-500) * var(--orange-chroma, 1)) var(--orange-hue));
+  --base-orange-600: oklch(calc(var(--L-600) + var(--orange-hk, 0) * var(--chroma-600) * var(--orange-chroma, 1) + var(--orange-taste, 0)) calc(var(--chroma-600) * var(--orange-chroma, 1)) var(--orange-hue));
+  --base-orange-700: oklch(calc(var(--L-700) + var(--orange-hk, 0) * var(--chroma-700) * var(--orange-chroma, 1) + var(--orange-taste, 0)) calc(var(--chroma-700) * var(--orange-chroma, 1)) var(--orange-hue));
+  --base-orange-800: oklch(calc(var(--L-800) + var(--orange-hk, 0) * var(--chroma-800) * var(--orange-chroma, 1) + var(--orange-taste, 0)) calc(var(--chroma-800) * var(--orange-chroma, 1)) var(--orange-hue));
+  --base-orange-900: oklch(calc(var(--L-900) + var(--orange-hk, 0) * var(--chroma-900) * var(--orange-chroma, 1) + var(--orange-taste, 0)) calc(var(--chroma-900) * var(--orange-chroma, 1)) var(--orange-hue));
+  --base-orange-950: oklch(calc(var(--L-950) + var(--orange-hk, 0) * var(--chroma-950) * var(--orange-chroma, 1) + var(--orange-taste, 0)) calc(var(--chroma-950) * var(--orange-chroma, 1)) var(--orange-hue));
+  --base-orange-1000: oklch(calc(var(--L-1000) + var(--orange-hk, 0) * var(--chroma-1000) * var(--orange-chroma, 1) + var(--orange-taste, 0)) calc(var(--chroma-1000) * var(--orange-chroma, 1)) var(--orange-hue));
+
+  --base-amber-0: oklch(calc(var(--L-0) + var(--amber-hk, 0) * var(--chroma-0) * var(--amber-chroma, 1) + var(--amber-taste, 0)) calc(var(--chroma-0) * var(--amber-chroma, 1)) var(--amber-hue));
+  --base-amber-50: oklch(calc(var(--L-50) + var(--amber-hk, 0) * var(--chroma-50) * var(--amber-chroma, 1) + var(--amber-taste, 0)) calc(var(--chroma-50) * var(--amber-chroma, 1)) var(--amber-hue));
+  --base-amber-100: oklch(calc(var(--L-100) + var(--amber-hk, 0) * var(--chroma-100) * var(--amber-chroma, 1) + var(--amber-taste, 0)) calc(var(--chroma-100) * var(--amber-chroma, 1)) var(--amber-hue));
+  --base-amber-200: oklch(calc(var(--L-200) + var(--amber-hk, 0) * var(--chroma-200) * var(--amber-chroma, 1) + var(--amber-taste, 0)) calc(var(--chroma-200) * var(--amber-chroma, 1)) var(--amber-hue));
+  --base-amber-300: oklch(calc(var(--L-300) + var(--amber-hk, 0) * var(--chroma-300) * var(--amber-chroma, 1) + var(--amber-taste, 0)) calc(var(--chroma-300) * var(--amber-chroma, 1)) var(--amber-hue));
+  --base-amber-400: oklch(calc(var(--L-400) + var(--amber-hk, 0) * var(--chroma-400) * var(--amber-chroma, 1) + var(--amber-taste, 0)) calc(var(--chroma-400) * var(--amber-chroma, 1)) var(--amber-hue));
+  --base-amber-500: oklch(calc(var(--L-500) + var(--amber-hk, 0) * var(--chroma-500) * var(--amber-chroma, 1) + var(--amber-taste, 0)) calc(var(--chroma-500) * var(--amber-chroma, 1)) var(--amber-hue));
+  --base-amber-600: oklch(calc(var(--L-600) + var(--amber-hk, 0) * var(--chroma-600) * var(--amber-chroma, 1) + var(--amber-taste, 0)) calc(var(--chroma-600) * var(--amber-chroma, 1)) var(--amber-hue));
+  --base-amber-700: oklch(calc(var(--L-700) + var(--amber-hk, 0) * var(--chroma-700) * var(--amber-chroma, 1) + var(--amber-taste, 0)) calc(var(--chroma-700) * var(--amber-chroma, 1)) var(--amber-hue));
+  --base-amber-800: oklch(calc(var(--L-800) + var(--amber-hk, 0) * var(--chroma-800) * var(--amber-chroma, 1) + var(--amber-taste, 0)) calc(var(--chroma-800) * var(--amber-chroma, 1)) var(--amber-hue));
+  --base-amber-900: oklch(calc(var(--L-900) + var(--amber-hk, 0) * var(--chroma-900) * var(--amber-chroma, 1) + var(--amber-taste, 0)) calc(var(--chroma-900) * var(--amber-chroma, 1)) var(--amber-hue));
+  --base-amber-950: oklch(calc(var(--L-950) + var(--amber-hk, 0) * var(--chroma-950) * var(--amber-chroma, 1) + var(--amber-taste, 0)) calc(var(--chroma-950) * var(--amber-chroma, 1)) var(--amber-hue));
+  --base-amber-1000: oklch(calc(var(--L-1000) + var(--amber-hk, 0) * var(--chroma-1000) * var(--amber-chroma, 1) + var(--amber-taste, 0)) calc(var(--chroma-1000) * var(--amber-chroma, 1)) var(--amber-hue));
+
+  --base-yellow-0: oklch(calc(var(--L-0) + var(--yellow-hk, 0) * var(--chroma-0) * var(--yellow-chroma, 1) + var(--yellow-taste, 0)) calc(var(--chroma-0) * var(--yellow-chroma, 1)) var(--yellow-hue));
+  --base-yellow-50: oklch(calc(var(--L-50) + var(--yellow-hk, 0) * var(--chroma-50) * var(--yellow-chroma, 1) + var(--yellow-taste, 0)) calc(var(--chroma-50) * var(--yellow-chroma, 1)) var(--yellow-hue));
+  --base-yellow-100: oklch(calc(var(--L-100) + var(--yellow-hk, 0) * var(--chroma-100) * var(--yellow-chroma, 1) + var(--yellow-taste, 0)) calc(var(--chroma-100) * var(--yellow-chroma, 1)) var(--yellow-hue));
+  --base-yellow-200: oklch(calc(var(--L-200) + var(--yellow-hk, 0) * var(--chroma-200) * var(--yellow-chroma, 1) + var(--yellow-taste, 0)) calc(var(--chroma-200) * var(--yellow-chroma, 1)) var(--yellow-hue));
+  --base-yellow-300: oklch(calc(var(--L-300) + var(--yellow-hk, 0) * var(--chroma-300) * var(--yellow-chroma, 1) + var(--yellow-taste, 0)) calc(var(--chroma-300) * var(--yellow-chroma, 1)) var(--yellow-hue));
+  --base-yellow-400: oklch(calc(var(--L-400) + var(--yellow-hk, 0) * var(--chroma-400) * var(--yellow-chroma, 1) + var(--yellow-taste, 0)) calc(var(--chroma-400) * var(--yellow-chroma, 1)) var(--yellow-hue));
+  --base-yellow-500: oklch(calc(var(--L-500) + var(--yellow-hk, 0) * var(--chroma-500) * var(--yellow-chroma, 1) + var(--yellow-taste, 0)) calc(var(--chroma-500) * var(--yellow-chroma, 1)) var(--yellow-hue));
+  --base-yellow-600: oklch(calc(var(--L-600) + var(--yellow-hk, 0) * var(--chroma-600) * var(--yellow-chroma, 1) + var(--yellow-taste, 0)) calc(var(--chroma-600) * var(--yellow-chroma, 1)) var(--yellow-hue));
+  --base-yellow-700: oklch(calc(var(--L-700) + var(--yellow-hk, 0) * var(--chroma-700) * var(--yellow-chroma, 1) + var(--yellow-taste, 0)) calc(var(--chroma-700) * var(--yellow-chroma, 1)) var(--yellow-hue));
+  --base-yellow-800: oklch(calc(var(--L-800) + var(--yellow-hk, 0) * var(--chroma-800) * var(--yellow-chroma, 1) + var(--yellow-taste, 0)) calc(var(--chroma-800) * var(--yellow-chroma, 1)) var(--yellow-hue));
+  --base-yellow-900: oklch(calc(var(--L-900) + var(--yellow-hk, 0) * var(--chroma-900) * var(--yellow-chroma, 1) + var(--yellow-taste, 0)) calc(var(--chroma-900) * var(--yellow-chroma, 1)) var(--yellow-hue));
+  --base-yellow-950: oklch(calc(var(--L-950) + var(--yellow-hk, 0) * var(--chroma-950) * var(--yellow-chroma, 1) + var(--yellow-taste, 0)) calc(var(--chroma-950) * var(--yellow-chroma, 1)) var(--yellow-hue));
+  --base-yellow-1000: oklch(calc(var(--L-1000) + var(--yellow-hk, 0) * var(--chroma-1000) * var(--yellow-chroma, 1) + var(--yellow-taste, 0)) calc(var(--chroma-1000) * var(--yellow-chroma, 1)) var(--yellow-hue));
+
+  --base-lime-0: oklch(calc(var(--L-0) + var(--lime-hk, 0) * var(--chroma-0) * var(--lime-chroma, 1) + var(--lime-taste, 0)) calc(var(--chroma-0) * var(--lime-chroma, 1)) var(--lime-hue));
+  --base-lime-50: oklch(calc(var(--L-50) + var(--lime-hk, 0) * var(--chroma-50) * var(--lime-chroma, 1) + var(--lime-taste, 0)) calc(var(--chroma-50) * var(--lime-chroma, 1)) var(--lime-hue));
+  --base-lime-100: oklch(calc(var(--L-100) + var(--lime-hk, 0) * var(--chroma-100) * var(--lime-chroma, 1) + var(--lime-taste, 0)) calc(var(--chroma-100) * var(--lime-chroma, 1)) var(--lime-hue));
+  --base-lime-200: oklch(calc(var(--L-200) + var(--lime-hk, 0) * var(--chroma-200) * var(--lime-chroma, 1) + var(--lime-taste, 0)) calc(var(--chroma-200) * var(--lime-chroma, 1)) var(--lime-hue));
+  --base-lime-300: oklch(calc(var(--L-300) + var(--lime-hk, 0) * var(--chroma-300) * var(--lime-chroma, 1) + var(--lime-taste, 0)) calc(var(--chroma-300) * var(--lime-chroma, 1)) var(--lime-hue));
+  --base-lime-400: oklch(calc(var(--L-400) + var(--lime-hk, 0) * var(--chroma-400) * var(--lime-chroma, 1) + var(--lime-taste, 0)) calc(var(--chroma-400) * var(--lime-chroma, 1)) var(--lime-hue));
+  --base-lime-500: oklch(calc(var(--L-500) + var(--lime-hk, 0) * var(--chroma-500) * var(--lime-chroma, 1) + var(--lime-taste, 0)) calc(var(--chroma-500) * var(--lime-chroma, 1)) var(--lime-hue));
+  --base-lime-600: oklch(calc(var(--L-600) + var(--lime-hk, 0) * var(--chroma-600) * var(--lime-chroma, 1) + var(--lime-taste, 0)) calc(var(--chroma-600) * var(--lime-chroma, 1)) var(--lime-hue));
+  --base-lime-700: oklch(calc(var(--L-700) + var(--lime-hk, 0) * var(--chroma-700) * var(--lime-chroma, 1) + var(--lime-taste, 0)) calc(var(--chroma-700) * var(--lime-chroma, 1)) var(--lime-hue));
+  --base-lime-800: oklch(calc(var(--L-800) + var(--lime-hk, 0) * var(--chroma-800) * var(--lime-chroma, 1) + var(--lime-taste, 0)) calc(var(--chroma-800) * var(--lime-chroma, 1)) var(--lime-hue));
+  --base-lime-900: oklch(calc(var(--L-900) + var(--lime-hk, 0) * var(--chroma-900) * var(--lime-chroma, 1) + var(--lime-taste, 0)) calc(var(--chroma-900) * var(--lime-chroma, 1)) var(--lime-hue));
+  --base-lime-950: oklch(calc(var(--L-950) + var(--lime-hk, 0) * var(--chroma-950) * var(--lime-chroma, 1) + var(--lime-taste, 0)) calc(var(--chroma-950) * var(--lime-chroma, 1)) var(--lime-hue));
+  --base-lime-1000: oklch(calc(var(--L-1000) + var(--lime-hk, 0) * var(--chroma-1000) * var(--lime-chroma, 1) + var(--lime-taste, 0)) calc(var(--chroma-1000) * var(--lime-chroma, 1)) var(--lime-hue));
+
+  --base-green-0: oklch(calc(var(--L-0) + var(--green-hk, 0) * var(--chroma-0) * var(--green-chroma, 1) + var(--green-taste, 0)) calc(var(--chroma-0) * var(--green-chroma, 1)) var(--green-hue));
+  --base-green-50: oklch(calc(var(--L-50) + var(--green-hk, 0) * var(--chroma-50) * var(--green-chroma, 1) + var(--green-taste, 0)) calc(var(--chroma-50) * var(--green-chroma, 1)) var(--green-hue));
+  --base-green-100: oklch(calc(var(--L-100) + var(--green-hk, 0) * var(--chroma-100) * var(--green-chroma, 1) + var(--green-taste, 0)) calc(var(--chroma-100) * var(--green-chroma, 1)) var(--green-hue));
+  --base-green-200: oklch(calc(var(--L-200) + var(--green-hk, 0) * var(--chroma-200) * var(--green-chroma, 1) + var(--green-taste, 0)) calc(var(--chroma-200) * var(--green-chroma, 1)) var(--green-hue));
+  --base-green-300: oklch(calc(var(--L-300) + var(--green-hk, 0) * var(--chroma-300) * var(--green-chroma, 1) + var(--green-taste, 0)) calc(var(--chroma-300) * var(--green-chroma, 1)) var(--green-hue));
+  --base-green-400: oklch(calc(var(--L-400) + var(--green-hk, 0) * var(--chroma-400) * var(--green-chroma, 1) + var(--green-taste, 0)) calc(var(--chroma-400) * var(--green-chroma, 1)) var(--green-hue));
+  --base-green-500: oklch(calc(var(--L-500) + var(--green-hk, 0) * var(--chroma-500) * var(--green-chroma, 1) + var(--green-taste, 0)) calc(var(--chroma-500) * var(--green-chroma, 1)) var(--green-hue));
+  --base-green-600: oklch(calc(var(--L-600) + var(--green-hk, 0) * var(--chroma-600) * var(--green-chroma, 1) + var(--green-taste, 0)) calc(var(--chroma-600) * var(--green-chroma, 1)) var(--green-hue));
+  --base-green-700: oklch(calc(var(--L-700) + var(--green-hk, 0) * var(--chroma-700) * var(--green-chroma, 1) + var(--green-taste, 0)) calc(var(--chroma-700) * var(--green-chroma, 1)) var(--green-hue));
+  --base-green-800: oklch(calc(var(--L-800) + var(--green-hk, 0) * var(--chroma-800) * var(--green-chroma, 1) + var(--green-taste, 0)) calc(var(--chroma-800) * var(--green-chroma, 1)) var(--green-hue));
+  --base-green-900: oklch(calc(var(--L-900) + var(--green-hk, 0) * var(--chroma-900) * var(--green-chroma, 1) + var(--green-taste, 0)) calc(var(--chroma-900) * var(--green-chroma, 1)) var(--green-hue));
+  --base-green-950: oklch(calc(var(--L-950) + var(--green-hk, 0) * var(--chroma-950) * var(--green-chroma, 1) + var(--green-taste, 0)) calc(var(--chroma-950) * var(--green-chroma, 1)) var(--green-hue));
+  --base-green-1000: oklch(calc(var(--L-1000) + var(--green-hk, 0) * var(--chroma-1000) * var(--green-chroma, 1) + var(--green-taste, 0)) calc(var(--chroma-1000) * var(--green-chroma, 1)) var(--green-hue));
+
+  --base-emerald-0: oklch(calc(var(--L-0) + var(--emerald-hk, 0) * var(--chroma-0) * var(--emerald-chroma, 1) + var(--emerald-taste, 0)) calc(var(--chroma-0) * var(--emerald-chroma, 1)) var(--emerald-hue));
+  --base-emerald-50: oklch(calc(var(--L-50) + var(--emerald-hk, 0) * var(--chroma-50) * var(--emerald-chroma, 1) + var(--emerald-taste, 0)) calc(var(--chroma-50) * var(--emerald-chroma, 1)) var(--emerald-hue));
+  --base-emerald-100: oklch(calc(var(--L-100) + var(--emerald-hk, 0) * var(--chroma-100) * var(--emerald-chroma, 1) + var(--emerald-taste, 0)) calc(var(--chroma-100) * var(--emerald-chroma, 1)) var(--emerald-hue));
+  --base-emerald-200: oklch(calc(var(--L-200) + var(--emerald-hk, 0) * var(--chroma-200) * var(--emerald-chroma, 1) + var(--emerald-taste, 0)) calc(var(--chroma-200) * var(--emerald-chroma, 1)) var(--emerald-hue));
+  --base-emerald-300: oklch(calc(var(--L-300) + var(--emerald-hk, 0) * var(--chroma-300) * var(--emerald-chroma, 1) + var(--emerald-taste, 0)) calc(var(--chroma-300) * var(--emerald-chroma, 1)) var(--emerald-hue));
+  --base-emerald-400: oklch(calc(var(--L-400) + var(--emerald-hk, 0) * var(--chroma-400) * var(--emerald-chroma, 1) + var(--emerald-taste, 0)) calc(var(--chroma-400) * var(--emerald-chroma, 1)) var(--emerald-hue));
+  --base-emerald-500: oklch(calc(var(--L-500) + var(--emerald-hk, 0) * var(--chroma-500) * var(--emerald-chroma, 1) + var(--emerald-taste, 0)) calc(var(--chroma-500) * var(--emerald-chroma, 1)) var(--emerald-hue));
+  --base-emerald-600: oklch(calc(var(--L-600) + var(--emerald-hk, 0) * var(--chroma-600) * var(--emerald-chroma, 1) + var(--emerald-taste, 0)) calc(var(--chroma-600) * var(--emerald-chroma, 1)) var(--emerald-hue));
+  --base-emerald-700: oklch(calc(var(--L-700) + var(--emerald-hk, 0) * var(--chroma-700) * var(--emerald-chroma, 1) + var(--emerald-taste, 0)) calc(var(--chroma-700) * var(--emerald-chroma, 1)) var(--emerald-hue));
+  --base-emerald-800: oklch(calc(var(--L-800) + var(--emerald-hk, 0) * var(--chroma-800) * var(--emerald-chroma, 1) + var(--emerald-taste, 0)) calc(var(--chroma-800) * var(--emerald-chroma, 1)) var(--emerald-hue));
+  --base-emerald-900: oklch(calc(var(--L-900) + var(--emerald-hk, 0) * var(--chroma-900) * var(--emerald-chroma, 1) + var(--emerald-taste, 0)) calc(var(--chroma-900) * var(--emerald-chroma, 1)) var(--emerald-hue));
+  --base-emerald-950: oklch(calc(var(--L-950) + var(--emerald-hk, 0) * var(--chroma-950) * var(--emerald-chroma, 1) + var(--emerald-taste, 0)) calc(var(--chroma-950) * var(--emerald-chroma, 1)) var(--emerald-hue));
+  --base-emerald-1000: oklch(calc(var(--L-1000) + var(--emerald-hk, 0) * var(--chroma-1000) * var(--emerald-chroma, 1) + var(--emerald-taste, 0)) calc(var(--chroma-1000) * var(--emerald-chroma, 1)) var(--emerald-hue));
+
+  --base-cyan-0: oklch(calc(var(--L-0) + var(--cyan-hk, 0) * var(--chroma-0) * var(--cyan-chroma, 1) + var(--cyan-taste, 0)) calc(var(--chroma-0) * var(--cyan-chroma, 1)) var(--cyan-hue));
+  --base-cyan-50: oklch(calc(var(--L-50) + var(--cyan-hk, 0) * var(--chroma-50) * var(--cyan-chroma, 1) + var(--cyan-taste, 0)) calc(var(--chroma-50) * var(--cyan-chroma, 1)) var(--cyan-hue));
+  --base-cyan-100: oklch(calc(var(--L-100) + var(--cyan-hk, 0) * var(--chroma-100) * var(--cyan-chroma, 1) + var(--cyan-taste, 0)) calc(var(--chroma-100) * var(--cyan-chroma, 1)) var(--cyan-hue));
+  --base-cyan-200: oklch(calc(var(--L-200) + var(--cyan-hk, 0) * var(--chroma-200) * var(--cyan-chroma, 1) + var(--cyan-taste, 0)) calc(var(--chroma-200) * var(--cyan-chroma, 1)) var(--cyan-hue));
+  --base-cyan-300: oklch(calc(var(--L-300) + var(--cyan-hk, 0) * var(--chroma-300) * var(--cyan-chroma, 1) + var(--cyan-taste, 0)) calc(var(--chroma-300) * var(--cyan-chroma, 1)) var(--cyan-hue));
+  --base-cyan-400: oklch(calc(var(--L-400) + var(--cyan-hk, 0) * var(--chroma-400) * var(--cyan-chroma, 1) + var(--cyan-taste, 0)) calc(var(--chroma-400) * var(--cyan-chroma, 1)) var(--cyan-hue));
+  --base-cyan-500: oklch(calc(var(--L-500) + var(--cyan-hk, 0) * var(--chroma-500) * var(--cyan-chroma, 1) + var(--cyan-taste, 0)) calc(var(--chroma-500) * var(--cyan-chroma, 1)) var(--cyan-hue));
+  --base-cyan-600: oklch(calc(var(--L-600) + var(--cyan-hk, 0) * var(--chroma-600) * var(--cyan-chroma, 1) + var(--cyan-taste, 0)) calc(var(--chroma-600) * var(--cyan-chroma, 1)) var(--cyan-hue));
+  --base-cyan-700: oklch(calc(var(--L-700) + var(--cyan-hk, 0) * var(--chroma-700) * var(--cyan-chroma, 1) + var(--cyan-taste, 0)) calc(var(--chroma-700) * var(--cyan-chroma, 1)) var(--cyan-hue));
+  --base-cyan-800: oklch(calc(var(--L-800) + var(--cyan-hk, 0) * var(--chroma-800) * var(--cyan-chroma, 1) + var(--cyan-taste, 0)) calc(var(--chroma-800) * var(--cyan-chroma, 1)) var(--cyan-hue));
+  --base-cyan-900: oklch(calc(var(--L-900) + var(--cyan-hk, 0) * var(--chroma-900) * var(--cyan-chroma, 1) + var(--cyan-taste, 0)) calc(var(--chroma-900) * var(--cyan-chroma, 1)) var(--cyan-hue));
+  --base-cyan-950: oklch(calc(var(--L-950) + var(--cyan-hk, 0) * var(--chroma-950) * var(--cyan-chroma, 1) + var(--cyan-taste, 0)) calc(var(--chroma-950) * var(--cyan-chroma, 1)) var(--cyan-hue));
+  --base-cyan-1000: oklch(calc(var(--L-1000) + var(--cyan-hk, 0) * var(--chroma-1000) * var(--cyan-chroma, 1) + var(--cyan-taste, 0)) calc(var(--chroma-1000) * var(--cyan-chroma, 1)) var(--cyan-hue));
+
+  --base-teal-0: oklch(calc(var(--L-0) + var(--teal-hk, 0) * var(--chroma-0) * var(--teal-chroma, 1) + var(--teal-taste, 0)) calc(var(--chroma-0) * var(--teal-chroma, 1)) var(--teal-hue));
+  --base-teal-50: oklch(calc(var(--L-50) + var(--teal-hk, 0) * var(--chroma-50) * var(--teal-chroma, 1) + var(--teal-taste, 0)) calc(var(--chroma-50) * var(--teal-chroma, 1)) var(--teal-hue));
+  --base-teal-100: oklch(calc(var(--L-100) + var(--teal-hk, 0) * var(--chroma-100) * var(--teal-chroma, 1) + var(--teal-taste, 0)) calc(var(--chroma-100) * var(--teal-chroma, 1)) var(--teal-hue));
+  --base-teal-200: oklch(calc(var(--L-200) + var(--teal-hk, 0) * var(--chroma-200) * var(--teal-chroma, 1) + var(--teal-taste, 0)) calc(var(--chroma-200) * var(--teal-chroma, 1)) var(--teal-hue));
+  --base-teal-300: oklch(calc(var(--L-300) + var(--teal-hk, 0) * var(--chroma-300) * var(--teal-chroma, 1) + var(--teal-taste, 0)) calc(var(--chroma-300) * var(--teal-chroma, 1)) var(--teal-hue));
+  --base-teal-400: oklch(calc(var(--L-400) + var(--teal-hk, 0) * var(--chroma-400) * var(--teal-chroma, 1) + var(--teal-taste, 0)) calc(var(--chroma-400) * var(--teal-chroma, 1)) var(--teal-hue));
+  --base-teal-500: oklch(calc(var(--L-500) + var(--teal-hk, 0) * var(--chroma-500) * var(--teal-chroma, 1) + var(--teal-taste, 0)) calc(var(--chroma-500) * var(--teal-chroma, 1)) var(--teal-hue));
+  --base-teal-600: oklch(calc(var(--L-600) + var(--teal-hk, 0) * var(--chroma-600) * var(--teal-chroma, 1) + var(--teal-taste, 0)) calc(var(--chroma-600) * var(--teal-chroma, 1)) var(--teal-hue));
+  --base-teal-700: oklch(calc(var(--L-700) + var(--teal-hk, 0) * var(--chroma-700) * var(--teal-chroma, 1) + var(--teal-taste, 0)) calc(var(--chroma-700) * var(--teal-chroma, 1)) var(--teal-hue));
+  --base-teal-800: oklch(calc(var(--L-800) + var(--teal-hk, 0) * var(--chroma-800) * var(--teal-chroma, 1) + var(--teal-taste, 0)) calc(var(--chroma-800) * var(--teal-chroma, 1)) var(--teal-hue));
+  --base-teal-900: oklch(calc(var(--L-900) + var(--teal-hk, 0) * var(--chroma-900) * var(--teal-chroma, 1) + var(--teal-taste, 0)) calc(var(--chroma-900) * var(--teal-chroma, 1)) var(--teal-hue));
+  --base-teal-950: oklch(calc(var(--L-950) + var(--teal-hk, 0) * var(--chroma-950) * var(--teal-chroma, 1) + var(--teal-taste, 0)) calc(var(--chroma-950) * var(--teal-chroma, 1)) var(--teal-hue));
+  --base-teal-1000: oklch(calc(var(--L-1000) + var(--teal-hk, 0) * var(--chroma-1000) * var(--teal-chroma, 1) + var(--teal-taste, 0)) calc(var(--chroma-1000) * var(--teal-chroma, 1)) var(--teal-hue));
+
+  --base-sky-0: oklch(calc(var(--L-0) + var(--sky-hk, 0) * var(--chroma-0) * var(--sky-chroma, 1) + var(--sky-taste, 0)) calc(var(--chroma-0) * var(--sky-chroma, 1)) var(--sky-hue));
+  --base-sky-50: oklch(calc(var(--L-50) + var(--sky-hk, 0) * var(--chroma-50) * var(--sky-chroma, 1) + var(--sky-taste, 0)) calc(var(--chroma-50) * var(--sky-chroma, 1)) var(--sky-hue));
+  --base-sky-100: oklch(calc(var(--L-100) + var(--sky-hk, 0) * var(--chroma-100) * var(--sky-chroma, 1) + var(--sky-taste, 0)) calc(var(--chroma-100) * var(--sky-chroma, 1)) var(--sky-hue));
+  --base-sky-200: oklch(calc(var(--L-200) + var(--sky-hk, 0) * var(--chroma-200) * var(--sky-chroma, 1) + var(--sky-taste, 0)) calc(var(--chroma-200) * var(--sky-chroma, 1)) var(--sky-hue));
+  --base-sky-300: oklch(calc(var(--L-300) + var(--sky-hk, 0) * var(--chroma-300) * var(--sky-chroma, 1) + var(--sky-taste, 0)) calc(var(--chroma-300) * var(--sky-chroma, 1)) var(--sky-hue));
+  --base-sky-400: oklch(calc(var(--L-400) + var(--sky-hk, 0) * var(--chroma-400) * var(--sky-chroma, 1) + var(--sky-taste, 0)) calc(var(--chroma-400) * var(--sky-chroma, 1)) var(--sky-hue));
+  --base-sky-500: oklch(calc(var(--L-500) + var(--sky-hk, 0) * var(--chroma-500) * var(--sky-chroma, 1) + var(--sky-taste, 0)) calc(var(--chroma-500) * var(--sky-chroma, 1)) var(--sky-hue));
+  --base-sky-600: oklch(calc(var(--L-600) + var(--sky-hk, 0) * var(--chroma-600) * var(--sky-chroma, 1) + var(--sky-taste, 0)) calc(var(--chroma-600) * var(--sky-chroma, 1)) var(--sky-hue));
+  --base-sky-700: oklch(calc(var(--L-700) + var(--sky-hk, 0) * var(--chroma-700) * var(--sky-chroma, 1) + var(--sky-taste, 0)) calc(var(--chroma-700) * var(--sky-chroma, 1)) var(--sky-hue));
+  --base-sky-800: oklch(calc(var(--L-800) + var(--sky-hk, 0) * var(--chroma-800) * var(--sky-chroma, 1) + var(--sky-taste, 0)) calc(var(--chroma-800) * var(--sky-chroma, 1)) var(--sky-hue));
+  --base-sky-900: oklch(calc(var(--L-900) + var(--sky-hk, 0) * var(--chroma-900) * var(--sky-chroma, 1) + var(--sky-taste, 0)) calc(var(--chroma-900) * var(--sky-chroma, 1)) var(--sky-hue));
+  --base-sky-950: oklch(calc(var(--L-950) + var(--sky-hk, 0) * var(--chroma-950) * var(--sky-chroma, 1) + var(--sky-taste, 0)) calc(var(--chroma-950) * var(--sky-chroma, 1)) var(--sky-hue));
+  --base-sky-1000: oklch(calc(var(--L-1000) + var(--sky-hk, 0) * var(--chroma-1000) * var(--sky-chroma, 1) + var(--sky-taste, 0)) calc(var(--chroma-1000) * var(--sky-chroma, 1)) var(--sky-hue));
+
+  --base-blue-0: oklch(calc(var(--L-0) + var(--blue-hk, 0) * var(--chroma-0) * var(--blue-chroma, 1) + var(--blue-taste, 0)) calc(var(--chroma-0) * var(--blue-chroma, 1)) var(--blue-hue));
+  --base-blue-50: oklch(calc(var(--L-50) + var(--blue-hk, 0) * var(--chroma-50) * var(--blue-chroma, 1) + var(--blue-taste, 0)) calc(var(--chroma-50) * var(--blue-chroma, 1)) var(--blue-hue));
+  --base-blue-100: oklch(calc(var(--L-100) + var(--blue-hk, 0) * var(--chroma-100) * var(--blue-chroma, 1) + var(--blue-taste, 0)) calc(var(--chroma-100) * var(--blue-chroma, 1)) var(--blue-hue));
+  --base-blue-200: oklch(calc(var(--L-200) + var(--blue-hk, 0) * var(--chroma-200) * var(--blue-chroma, 1) + var(--blue-taste, 0)) calc(var(--chroma-200) * var(--blue-chroma, 1)) var(--blue-hue));
+  --base-blue-300: oklch(calc(var(--L-300) + var(--blue-hk, 0) * var(--chroma-300) * var(--blue-chroma, 1) + var(--blue-taste, 0)) calc(var(--chroma-300) * var(--blue-chroma, 1)) var(--blue-hue));
+  --base-blue-400: oklch(calc(var(--L-400) + var(--blue-hk, 0) * var(--chroma-400) * var(--blue-chroma, 1) + var(--blue-taste, 0)) calc(var(--chroma-400) * var(--blue-chroma, 1)) var(--blue-hue));
+  --base-blue-500: oklch(calc(var(--L-500) + var(--blue-hk, 0) * var(--chroma-500) * var(--blue-chroma, 1) + var(--blue-taste, 0)) calc(var(--chroma-500) * var(--blue-chroma, 1)) var(--blue-hue));
+  --base-blue-600: oklch(calc(var(--L-600) + var(--blue-hk, 0) * var(--chroma-600) * var(--blue-chroma, 1) + var(--blue-taste, 0)) calc(var(--chroma-600) * var(--blue-chroma, 1)) var(--blue-hue));
+  --base-blue-700: oklch(calc(var(--L-700) + var(--blue-hk, 0) * var(--chroma-700) * var(--blue-chroma, 1) + var(--blue-taste, 0)) calc(var(--chroma-700) * var(--blue-chroma, 1)) var(--blue-hue));
+  --base-blue-800: oklch(calc(var(--L-800) + var(--blue-hk, 0) * var(--chroma-800) * var(--blue-chroma, 1) + var(--blue-taste, 0)) calc(var(--chroma-800) * var(--blue-chroma, 1)) var(--blue-hue));
+  --base-blue-900: oklch(calc(var(--L-900) + var(--blue-hk, 0) * var(--chroma-900) * var(--blue-chroma, 1) + var(--blue-taste, 0)) calc(var(--chroma-900) * var(--blue-chroma, 1)) var(--blue-hue));
+  --base-blue-950: oklch(calc(var(--L-950) + var(--blue-hk, 0) * var(--chroma-950) * var(--blue-chroma, 1) + var(--blue-taste, 0)) calc(var(--chroma-950) * var(--blue-chroma, 1)) var(--blue-hue));
+  --base-blue-1000: oklch(calc(var(--L-1000) + var(--blue-hk, 0) * var(--chroma-1000) * var(--blue-chroma, 1) + var(--blue-taste, 0)) calc(var(--chroma-1000) * var(--blue-chroma, 1)) var(--blue-hue));
+
+  --base-indigo-0: oklch(calc(var(--L-0) + var(--indigo-hk, 0) * var(--chroma-0) * var(--indigo-chroma, 1) + var(--indigo-taste, 0)) calc(var(--chroma-0) * var(--indigo-chroma, 1)) var(--indigo-hue));
+  --base-indigo-50: oklch(calc(var(--L-50) + var(--indigo-hk, 0) * var(--chroma-50) * var(--indigo-chroma, 1) + var(--indigo-taste, 0)) calc(var(--chroma-50) * var(--indigo-chroma, 1)) var(--indigo-hue));
+  --base-indigo-100: oklch(calc(var(--L-100) + var(--indigo-hk, 0) * var(--chroma-100) * var(--indigo-chroma, 1) + var(--indigo-taste, 0)) calc(var(--chroma-100) * var(--indigo-chroma, 1)) var(--indigo-hue));
+  --base-indigo-200: oklch(calc(var(--L-200) + var(--indigo-hk, 0) * var(--chroma-200) * var(--indigo-chroma, 1) + var(--indigo-taste, 0)) calc(var(--chroma-200) * var(--indigo-chroma, 1)) var(--indigo-hue));
+  --base-indigo-300: oklch(calc(var(--L-300) + var(--indigo-hk, 0) * var(--chroma-300) * var(--indigo-chroma, 1) + var(--indigo-taste, 0)) calc(var(--chroma-300) * var(--indigo-chroma, 1)) var(--indigo-hue));
+  --base-indigo-400: oklch(calc(var(--L-400) + var(--indigo-hk, 0) * var(--chroma-400) * var(--indigo-chroma, 1) + var(--indigo-taste, 0)) calc(var(--chroma-400) * var(--indigo-chroma, 1)) var(--indigo-hue));
+  --base-indigo-500: oklch(calc(var(--L-500) + var(--indigo-hk, 0) * var(--chroma-500) * var(--indigo-chroma, 1) + var(--indigo-taste, 0)) calc(var(--chroma-500) * var(--indigo-chroma, 1)) var(--indigo-hue));
+  --base-indigo-600: oklch(calc(var(--L-600) + var(--indigo-hk, 0) * var(--chroma-600) * var(--indigo-chroma, 1) + var(--indigo-taste, 0)) calc(var(--chroma-600) * var(--indigo-chroma, 1)) var(--indigo-hue));
+  --base-indigo-700: oklch(calc(var(--L-700) + var(--indigo-hk, 0) * var(--chroma-700) * var(--indigo-chroma, 1) + var(--indigo-taste, 0)) calc(var(--chroma-700) * var(--indigo-chroma, 1)) var(--indigo-hue));
+  --base-indigo-800: oklch(calc(var(--L-800) + var(--indigo-hk, 0) * var(--chroma-800) * var(--indigo-chroma, 1) + var(--indigo-taste, 0)) calc(var(--chroma-800) * var(--indigo-chroma, 1)) var(--indigo-hue));
+  --base-indigo-900: oklch(calc(var(--L-900) + var(--indigo-hk, 0) * var(--chroma-900) * var(--indigo-chroma, 1) + var(--indigo-taste, 0)) calc(var(--chroma-900) * var(--indigo-chroma, 1)) var(--indigo-hue));
+  --base-indigo-950: oklch(calc(var(--L-950) + var(--indigo-hk, 0) * var(--chroma-950) * var(--indigo-chroma, 1) + var(--indigo-taste, 0)) calc(var(--chroma-950) * var(--indigo-chroma, 1)) var(--indigo-hue));
+  --base-indigo-1000: oklch(calc(var(--L-1000) + var(--indigo-hk, 0) * var(--chroma-1000) * var(--indigo-chroma, 1) + var(--indigo-taste, 0)) calc(var(--chroma-1000) * var(--indigo-chroma, 1)) var(--indigo-hue));
+
+  --base-violet-0: oklch(calc(var(--L-0) + var(--violet-hk, 0) * var(--chroma-0) * var(--violet-chroma, 1) + var(--violet-taste, 0)) calc(var(--chroma-0) * var(--violet-chroma, 1)) var(--violet-hue));
+  --base-violet-50: oklch(calc(var(--L-50) + var(--violet-hk, 0) * var(--chroma-50) * var(--violet-chroma, 1) + var(--violet-taste, 0)) calc(var(--chroma-50) * var(--violet-chroma, 1)) var(--violet-hue));
+  --base-violet-100: oklch(calc(var(--L-100) + var(--violet-hk, 0) * var(--chroma-100) * var(--violet-chroma, 1) + var(--violet-taste, 0)) calc(var(--chroma-100) * var(--violet-chroma, 1)) var(--violet-hue));
+  --base-violet-200: oklch(calc(var(--L-200) + var(--violet-hk, 0) * var(--chroma-200) * var(--violet-chroma, 1) + var(--violet-taste, 0)) calc(var(--chroma-200) * var(--violet-chroma, 1)) var(--violet-hue));
+  --base-violet-300: oklch(calc(var(--L-300) + var(--violet-hk, 0) * var(--chroma-300) * var(--violet-chroma, 1) + var(--violet-taste, 0)) calc(var(--chroma-300) * var(--violet-chroma, 1)) var(--violet-hue));
+  --base-violet-400: oklch(calc(var(--L-400) + var(--violet-hk, 0) * var(--chroma-400) * var(--violet-chroma, 1) + var(--violet-taste, 0)) calc(var(--chroma-400) * var(--violet-chroma, 1)) var(--violet-hue));
+  --base-violet-500: oklch(calc(var(--L-500) + var(--violet-hk, 0) * var(--chroma-500) * var(--violet-chroma, 1) + var(--violet-taste, 0)) calc(var(--chroma-500) * var(--violet-chroma, 1)) var(--violet-hue));
+  --base-violet-600: oklch(calc(var(--L-600) + var(--violet-hk, 0) * var(--chroma-600) * var(--violet-chroma, 1) + var(--violet-taste, 0)) calc(var(--chroma-600) * var(--violet-chroma, 1)) var(--violet-hue));
+  --base-violet-700: oklch(calc(var(--L-700) + var(--violet-hk, 0) * var(--chroma-700) * var(--violet-chroma, 1) + var(--violet-taste, 0)) calc(var(--chroma-700) * var(--violet-chroma, 1)) var(--violet-hue));
+  --base-violet-800: oklch(calc(var(--L-800) + var(--violet-hk, 0) * var(--chroma-800) * var(--violet-chroma, 1) + var(--violet-taste, 0)) calc(var(--chroma-800) * var(--violet-chroma, 1)) var(--violet-hue));
+  --base-violet-900: oklch(calc(var(--L-900) + var(--violet-hk, 0) * var(--chroma-900) * var(--violet-chroma, 1) + var(--violet-taste, 0)) calc(var(--chroma-900) * var(--violet-chroma, 1)) var(--violet-hue));
+  --base-violet-950: oklch(calc(var(--L-950) + var(--violet-hk, 0) * var(--chroma-950) * var(--violet-chroma, 1) + var(--violet-taste, 0)) calc(var(--chroma-950) * var(--violet-chroma, 1)) var(--violet-hue));
+  --base-violet-1000: oklch(calc(var(--L-1000) + var(--violet-hk, 0) * var(--chroma-1000) * var(--violet-chroma, 1) + var(--violet-taste, 0)) calc(var(--chroma-1000) * var(--violet-chroma, 1)) var(--violet-hue));
+
+  --base-purple-0: oklch(calc(var(--L-0) + var(--purple-hk, 0) * var(--chroma-0) * var(--purple-chroma, 1) + var(--purple-taste, 0)) calc(var(--chroma-0) * var(--purple-chroma, 1)) var(--purple-hue));
+  --base-purple-50: oklch(calc(var(--L-50) + var(--purple-hk, 0) * var(--chroma-50) * var(--purple-chroma, 1) + var(--purple-taste, 0)) calc(var(--chroma-50) * var(--purple-chroma, 1)) var(--purple-hue));
+  --base-purple-100: oklch(calc(var(--L-100) + var(--purple-hk, 0) * var(--chroma-100) * var(--purple-chroma, 1) + var(--purple-taste, 0)) calc(var(--chroma-100) * var(--purple-chroma, 1)) var(--purple-hue));
+  --base-purple-200: oklch(calc(var(--L-200) + var(--purple-hk, 0) * var(--chroma-200) * var(--purple-chroma, 1) + var(--purple-taste, 0)) calc(var(--chroma-200) * var(--purple-chroma, 1)) var(--purple-hue));
+  --base-purple-300: oklch(calc(var(--L-300) + var(--purple-hk, 0) * var(--chroma-300) * var(--purple-chroma, 1) + var(--purple-taste, 0)) calc(var(--chroma-300) * var(--purple-chroma, 1)) var(--purple-hue));
+  --base-purple-400: oklch(calc(var(--L-400) + var(--purple-hk, 0) * var(--chroma-400) * var(--purple-chroma, 1) + var(--purple-taste, 0)) calc(var(--chroma-400) * var(--purple-chroma, 1)) var(--purple-hue));
+  --base-purple-500: oklch(calc(var(--L-500) + var(--purple-hk, 0) * var(--chroma-500) * var(--purple-chroma, 1) + var(--purple-taste, 0)) calc(var(--chroma-500) * var(--purple-chroma, 1)) var(--purple-hue));
+  --base-purple-600: oklch(calc(var(--L-600) + var(--purple-hk, 0) * var(--chroma-600) * var(--purple-chroma, 1) + var(--purple-taste, 0)) calc(var(--chroma-600) * var(--purple-chroma, 1)) var(--purple-hue));
+  --base-purple-700: oklch(calc(var(--L-700) + var(--purple-hk, 0) * var(--chroma-700) * var(--purple-chroma, 1) + var(--purple-taste, 0)) calc(var(--chroma-700) * var(--purple-chroma, 1)) var(--purple-hue));
+  --base-purple-800: oklch(calc(var(--L-800) + var(--purple-hk, 0) * var(--chroma-800) * var(--purple-chroma, 1) + var(--purple-taste, 0)) calc(var(--chroma-800) * var(--purple-chroma, 1)) var(--purple-hue));
+  --base-purple-900: oklch(calc(var(--L-900) + var(--purple-hk, 0) * var(--chroma-900) * var(--purple-chroma, 1) + var(--purple-taste, 0)) calc(var(--chroma-900) * var(--purple-chroma, 1)) var(--purple-hue));
+  --base-purple-950: oklch(calc(var(--L-950) + var(--purple-hk, 0) * var(--chroma-950) * var(--purple-chroma, 1) + var(--purple-taste, 0)) calc(var(--chroma-950) * var(--purple-chroma, 1)) var(--purple-hue));
+  --base-purple-1000: oklch(calc(var(--L-1000) + var(--purple-hk, 0) * var(--chroma-1000) * var(--purple-chroma, 1) + var(--purple-taste, 0)) calc(var(--chroma-1000) * var(--purple-chroma, 1)) var(--purple-hue));
+
+  --base-fuchsia-0: oklch(calc(var(--L-0) + var(--fuchsia-hk, 0) * var(--chroma-0) * var(--fuchsia-chroma, 1) + var(--fuchsia-taste, 0)) calc(var(--chroma-0) * var(--fuchsia-chroma, 1)) var(--fuchsia-hue));
+  --base-fuchsia-50: oklch(calc(var(--L-50) + var(--fuchsia-hk, 0) * var(--chroma-50) * var(--fuchsia-chroma, 1) + var(--fuchsia-taste, 0)) calc(var(--chroma-50) * var(--fuchsia-chroma, 1)) var(--fuchsia-hue));
+  --base-fuchsia-100: oklch(calc(var(--L-100) + var(--fuchsia-hk, 0) * var(--chroma-100) * var(--fuchsia-chroma, 1) + var(--fuchsia-taste, 0)) calc(var(--chroma-100) * var(--fuchsia-chroma, 1)) var(--fuchsia-hue));
+  --base-fuchsia-200: oklch(calc(var(--L-200) + var(--fuchsia-hk, 0) * var(--chroma-200) * var(--fuchsia-chroma, 1) + var(--fuchsia-taste, 0)) calc(var(--chroma-200) * var(--fuchsia-chroma, 1)) var(--fuchsia-hue));
+  --base-fuchsia-300: oklch(calc(var(--L-300) + var(--fuchsia-hk, 0) * var(--chroma-300) * var(--fuchsia-chroma, 1) + var(--fuchsia-taste, 0)) calc(var(--chroma-300) * var(--fuchsia-chroma, 1)) var(--fuchsia-hue));
+  --base-fuchsia-400: oklch(calc(var(--L-400) + var(--fuchsia-hk, 0) * var(--chroma-400) * var(--fuchsia-chroma, 1) + var(--fuchsia-taste, 0)) calc(var(--chroma-400) * var(--fuchsia-chroma, 1)) var(--fuchsia-hue));
+  --base-fuchsia-500: oklch(calc(var(--L-500) + var(--fuchsia-hk, 0) * var(--chroma-500) * var(--fuchsia-chroma, 1) + var(--fuchsia-taste, 0)) calc(var(--chroma-500) * var(--fuchsia-chroma, 1)) var(--fuchsia-hue));
+  --base-fuchsia-600: oklch(calc(var(--L-600) + var(--fuchsia-hk, 0) * var(--chroma-600) * var(--fuchsia-chroma, 1) + var(--fuchsia-taste, 0)) calc(var(--chroma-600) * var(--fuchsia-chroma, 1)) var(--fuchsia-hue));
+  --base-fuchsia-700: oklch(calc(var(--L-700) + var(--fuchsia-hk, 0) * var(--chroma-700) * var(--fuchsia-chroma, 1) + var(--fuchsia-taste, 0)) calc(var(--chroma-700) * var(--fuchsia-chroma, 1)) var(--fuchsia-hue));
+  --base-fuchsia-800: oklch(calc(var(--L-800) + var(--fuchsia-hk, 0) * var(--chroma-800) * var(--fuchsia-chroma, 1) + var(--fuchsia-taste, 0)) calc(var(--chroma-800) * var(--fuchsia-chroma, 1)) var(--fuchsia-hue));
+  --base-fuchsia-900: oklch(calc(var(--L-900) + var(--fuchsia-hk, 0) * var(--chroma-900) * var(--fuchsia-chroma, 1) + var(--fuchsia-taste, 0)) calc(var(--chroma-900) * var(--fuchsia-chroma, 1)) var(--fuchsia-hue));
+  --base-fuchsia-950: oklch(calc(var(--L-950) + var(--fuchsia-hk, 0) * var(--chroma-950) * var(--fuchsia-chroma, 1) + var(--fuchsia-taste, 0)) calc(var(--chroma-950) * var(--fuchsia-chroma, 1)) var(--fuchsia-hue));
+  --base-fuchsia-1000: oklch(calc(var(--L-1000) + var(--fuchsia-hk, 0) * var(--chroma-1000) * var(--fuchsia-chroma, 1) + var(--fuchsia-taste, 0)) calc(var(--chroma-1000) * var(--fuchsia-chroma, 1)) var(--fuchsia-hue));
+
+  --base-pink-0: oklch(calc(var(--L-0) + var(--pink-hk, 0) * var(--chroma-0) * var(--pink-chroma, 1) + var(--pink-taste, 0)) calc(var(--chroma-0) * var(--pink-chroma, 1)) var(--pink-hue));
+  --base-pink-50: oklch(calc(var(--L-50) + var(--pink-hk, 0) * var(--chroma-50) * var(--pink-chroma, 1) + var(--pink-taste, 0)) calc(var(--chroma-50) * var(--pink-chroma, 1)) var(--pink-hue));
+  --base-pink-100: oklch(calc(var(--L-100) + var(--pink-hk, 0) * var(--chroma-100) * var(--pink-chroma, 1) + var(--pink-taste, 0)) calc(var(--chroma-100) * var(--pink-chroma, 1)) var(--pink-hue));
+  --base-pink-200: oklch(calc(var(--L-200) + var(--pink-hk, 0) * var(--chroma-200) * var(--pink-chroma, 1) + var(--pink-taste, 0)) calc(var(--chroma-200) * var(--pink-chroma, 1)) var(--pink-hue));
+  --base-pink-300: oklch(calc(var(--L-300) + var(--pink-hk, 0) * var(--chroma-300) * var(--pink-chroma, 1) + var(--pink-taste, 0)) calc(var(--chroma-300) * var(--pink-chroma, 1)) var(--pink-hue));
+  --base-pink-400: oklch(calc(var(--L-400) + var(--pink-hk, 0) * var(--chroma-400) * var(--pink-chroma, 1) + var(--pink-taste, 0)) calc(var(--chroma-400) * var(--pink-chroma, 1)) var(--pink-hue));
+  --base-pink-500: oklch(calc(var(--L-500) + var(--pink-hk, 0) * var(--chroma-500) * var(--pink-chroma, 1) + var(--pink-taste, 0)) calc(var(--chroma-500) * var(--pink-chroma, 1)) var(--pink-hue));
+  --base-pink-600: oklch(calc(var(--L-600) + var(--pink-hk, 0) * var(--chroma-600) * var(--pink-chroma, 1) + var(--pink-taste, 0)) calc(var(--chroma-600) * var(--pink-chroma, 1)) var(--pink-hue));
+  --base-pink-700: oklch(calc(var(--L-700) + var(--pink-hk, 0) * var(--chroma-700) * var(--pink-chroma, 1) + var(--pink-taste, 0)) calc(var(--chroma-700) * var(--pink-chroma, 1)) var(--pink-hue));
+  --base-pink-800: oklch(calc(var(--L-800) + var(--pink-hk, 0) * var(--chroma-800) * var(--pink-chroma, 1) + var(--pink-taste, 0)) calc(var(--chroma-800) * var(--pink-chroma, 1)) var(--pink-hue));
+  --base-pink-900: oklch(calc(var(--L-900) + var(--pink-hk, 0) * var(--chroma-900) * var(--pink-chroma, 1) + var(--pink-taste, 0)) calc(var(--chroma-900) * var(--pink-chroma, 1)) var(--pink-hue));
+  --base-pink-950: oklch(calc(var(--L-950) + var(--pink-hk, 0) * var(--chroma-950) * var(--pink-chroma, 1) + var(--pink-taste, 0)) calc(var(--chroma-950) * var(--pink-chroma, 1)) var(--pink-hue));
+  --base-pink-1000: oklch(calc(var(--L-1000) + var(--pink-hk, 0) * var(--chroma-1000) * var(--pink-chroma, 1) + var(--pink-taste, 0)) calc(var(--chroma-1000) * var(--pink-chroma, 1)) var(--pink-hue));
+
+  /* ===========================================
+     INK: mode-aware tokens in Tailwind's --color-*
+     namespace -> bg-ink-green-500, text-ink-cyan-200,
+     border-ink-*, ring-ink-*, fill-ink-*, etc.
+     Dark mode = ramp reversal; 500 is the fixed point.
+     =========================================== */
+
+  --color-ink-gray-0: light-dark(var(--base-gray-0), var(--base-gray-1000));
+  --color-ink-gray-50: light-dark(var(--base-gray-50), var(--base-gray-950));
+  --color-ink-gray-100: light-dark(var(--base-gray-100), var(--base-gray-900));
+  --color-ink-gray-200: light-dark(var(--base-gray-200), var(--base-gray-800));
+  --color-ink-gray-300: light-dark(var(--base-gray-300), var(--base-gray-700));
+  --color-ink-gray-400: light-dark(var(--base-gray-400), var(--base-gray-600));
+  --color-ink-gray-500: var(--base-gray-500);
+  --color-ink-gray-600: light-dark(var(--base-gray-600), var(--base-gray-400));
+  --color-ink-gray-700: light-dark(var(--base-gray-700), var(--base-gray-300));
+  --color-ink-gray-800: light-dark(var(--base-gray-800), var(--base-gray-200));
+  --color-ink-gray-900: light-dark(var(--base-gray-900), var(--base-gray-100));
+  --color-ink-gray-950: light-dark(var(--base-gray-950), var(--base-gray-50));
+  --color-ink-gray-1000: light-dark(var(--base-gray-1000), var(--base-gray-0));
+
+  --color-ink-red-0: light-dark(var(--base-red-0), var(--base-red-1000));
+  --color-ink-red-50: light-dark(var(--base-red-50), var(--base-red-950));
+  --color-ink-red-100: light-dark(var(--base-red-100), var(--base-red-900));
+  --color-ink-red-200: light-dark(var(--base-red-200), var(--base-red-800));
+  --color-ink-red-300: light-dark(var(--base-red-300), var(--base-red-700));
+  --color-ink-red-400: light-dark(var(--base-red-400), var(--base-red-600));
+  --color-ink-red-500: var(--base-red-500);
+  --color-ink-red-600: light-dark(var(--base-red-600), var(--base-red-400));
+  --color-ink-red-700: light-dark(var(--base-red-700), var(--base-red-300));
+  --color-ink-red-800: light-dark(var(--base-red-800), var(--base-red-200));
+  --color-ink-red-900: light-dark(var(--base-red-900), var(--base-red-100));
+  --color-ink-red-950: light-dark(var(--base-red-950), var(--base-red-50));
+  --color-ink-red-1000: light-dark(var(--base-red-1000), var(--base-red-0));
+
+  --color-ink-orange-0: light-dark(var(--base-orange-0), var(--base-orange-1000));
+  --color-ink-orange-50: light-dark(var(--base-orange-50), var(--base-orange-950));
+  --color-ink-orange-100: light-dark(var(--base-orange-100), var(--base-orange-900));
+  --color-ink-orange-200: light-dark(var(--base-orange-200), var(--base-orange-800));
+  --color-ink-orange-300: light-dark(var(--base-orange-300), var(--base-orange-700));
+  --color-ink-orange-400: light-dark(var(--base-orange-400), var(--base-orange-600));
+  --color-ink-orange-500: var(--base-orange-500);
+  --color-ink-orange-600: light-dark(var(--base-orange-600), var(--base-orange-400));
+  --color-ink-orange-700: light-dark(var(--base-orange-700), var(--base-orange-300));
+  --color-ink-orange-800: light-dark(var(--base-orange-800), var(--base-orange-200));
+  --color-ink-orange-900: light-dark(var(--base-orange-900), var(--base-orange-100));
+  --color-ink-orange-950: light-dark(var(--base-orange-950), var(--base-orange-50));
+  --color-ink-orange-1000: light-dark(var(--base-orange-1000), var(--base-orange-0));
+
+  --color-ink-amber-0: light-dark(var(--base-amber-0), var(--base-amber-1000));
+  --color-ink-amber-50: light-dark(var(--base-amber-50), var(--base-amber-950));
+  --color-ink-amber-100: light-dark(var(--base-amber-100), var(--base-amber-900));
+  --color-ink-amber-200: light-dark(var(--base-amber-200), var(--base-amber-800));
+  --color-ink-amber-300: light-dark(var(--base-amber-300), var(--base-amber-700));
+  --color-ink-amber-400: light-dark(var(--base-amber-400), var(--base-amber-600));
+  --color-ink-amber-500: var(--base-amber-500);
+  --color-ink-amber-600: light-dark(var(--base-amber-600), var(--base-amber-400));
+  --color-ink-amber-700: light-dark(var(--base-amber-700), var(--base-amber-300));
+  --color-ink-amber-800: light-dark(var(--base-amber-800), var(--base-amber-200));
+  --color-ink-amber-900: light-dark(var(--base-amber-900), var(--base-amber-100));
+  --color-ink-amber-950: light-dark(var(--base-amber-950), var(--base-amber-50));
+  --color-ink-amber-1000: light-dark(var(--base-amber-1000), var(--base-amber-0));
+
+  --color-ink-yellow-0: light-dark(var(--base-yellow-0), var(--base-yellow-1000));
+  --color-ink-yellow-50: light-dark(var(--base-yellow-50), var(--base-yellow-950));
+  --color-ink-yellow-100: light-dark(var(--base-yellow-100), var(--base-yellow-900));
+  --color-ink-yellow-200: light-dark(var(--base-yellow-200), var(--base-yellow-800));
+  --color-ink-yellow-300: light-dark(var(--base-yellow-300), var(--base-yellow-700));
+  --color-ink-yellow-400: light-dark(var(--base-yellow-400), var(--base-yellow-600));
+  --color-ink-yellow-500: var(--base-yellow-500);
+  --color-ink-yellow-600: light-dark(var(--base-yellow-600), var(--base-yellow-400));
+  --color-ink-yellow-700: light-dark(var(--base-yellow-700), var(--base-yellow-300));
+  --color-ink-yellow-800: light-dark(var(--base-yellow-800), var(--base-yellow-200));
+  --color-ink-yellow-900: light-dark(var(--base-yellow-900), var(--base-yellow-100));
+  --color-ink-yellow-950: light-dark(var(--base-yellow-950), var(--base-yellow-50));
+  --color-ink-yellow-1000: light-dark(var(--base-yellow-1000), var(--base-yellow-0));
+
+  --color-ink-lime-0: light-dark(var(--base-lime-0), var(--base-lime-1000));
+  --color-ink-lime-50: light-dark(var(--base-lime-50), var(--base-lime-950));
+  --color-ink-lime-100: light-dark(var(--base-lime-100), var(--base-lime-900));
+  --color-ink-lime-200: light-dark(var(--base-lime-200), var(--base-lime-800));
+  --color-ink-lime-300: light-dark(var(--base-lime-300), var(--base-lime-700));
+  --color-ink-lime-400: light-dark(var(--base-lime-400), var(--base-lime-600));
+  --color-ink-lime-500: var(--base-lime-500);
+  --color-ink-lime-600: light-dark(var(--base-lime-600), var(--base-lime-400));
+  --color-ink-lime-700: light-dark(var(--base-lime-700), var(--base-lime-300));
+  --color-ink-lime-800: light-dark(var(--base-lime-800), var(--base-lime-200));
+  --color-ink-lime-900: light-dark(var(--base-lime-900), var(--base-lime-100));
+  --color-ink-lime-950: light-dark(var(--base-lime-950), var(--base-lime-50));
+  --color-ink-lime-1000: light-dark(var(--base-lime-1000), var(--base-lime-0));
+
+  --color-ink-green-0: light-dark(var(--base-green-0), var(--base-green-1000));
+  --color-ink-green-50: light-dark(var(--base-green-50), var(--base-green-950));
+  --color-ink-green-100: light-dark(var(--base-green-100), var(--base-green-900));
+  --color-ink-green-200: light-dark(var(--base-green-200), var(--base-green-800));
+  --color-ink-green-300: light-dark(var(--base-green-300), var(--base-green-700));
+  --color-ink-green-400: light-dark(var(--base-green-400), var(--base-green-600));
+  --color-ink-green-500: var(--base-green-500);
+  --color-ink-green-600: light-dark(var(--base-green-600), var(--base-green-400));
+  --color-ink-green-700: light-dark(var(--base-green-700), var(--base-green-300));
+  --color-ink-green-800: light-dark(var(--base-green-800), var(--base-green-200));
+  --color-ink-green-900: light-dark(var(--base-green-900), var(--base-green-100));
+  --color-ink-green-950: light-dark(var(--base-green-950), var(--base-green-50));
+  --color-ink-green-1000: light-dark(var(--base-green-1000), var(--base-green-0));
+
+  --color-ink-emerald-0: light-dark(var(--base-emerald-0), var(--base-emerald-1000));
+  --color-ink-emerald-50: light-dark(var(--base-emerald-50), var(--base-emerald-950));
+  --color-ink-emerald-100: light-dark(var(--base-emerald-100), var(--base-emerald-900));
+  --color-ink-emerald-200: light-dark(var(--base-emerald-200), var(--base-emerald-800));
+  --color-ink-emerald-300: light-dark(var(--base-emerald-300), var(--base-emerald-700));
+  --color-ink-emerald-400: light-dark(var(--base-emerald-400), var(--base-emerald-600));
+  --color-ink-emerald-500: var(--base-emerald-500);
+  --color-ink-emerald-600: light-dark(var(--base-emerald-600), var(--base-emerald-400));
+  --color-ink-emerald-700: light-dark(var(--base-emerald-700), var(--base-emerald-300));
+  --color-ink-emerald-800: light-dark(var(--base-emerald-800), var(--base-emerald-200));
+  --color-ink-emerald-900: light-dark(var(--base-emerald-900), var(--base-emerald-100));
+  --color-ink-emerald-950: light-dark(var(--base-emerald-950), var(--base-emerald-50));
+  --color-ink-emerald-1000: light-dark(var(--base-emerald-1000), var(--base-emerald-0));
+
+  --color-ink-cyan-0: light-dark(var(--base-cyan-0), var(--base-cyan-1000));
+  --color-ink-cyan-50: light-dark(var(--base-cyan-50), var(--base-cyan-950));
+  --color-ink-cyan-100: light-dark(var(--base-cyan-100), var(--base-cyan-900));
+  --color-ink-cyan-200: light-dark(var(--base-cyan-200), var(--base-cyan-800));
+  --color-ink-cyan-300: light-dark(var(--base-cyan-300), var(--base-cyan-700));
+  --color-ink-cyan-400: light-dark(var(--base-cyan-400), var(--base-cyan-600));
+  --color-ink-cyan-500: var(--base-cyan-500);
+  --color-ink-cyan-600: light-dark(var(--base-cyan-600), var(--base-cyan-400));
+  --color-ink-cyan-700: light-dark(var(--base-cyan-700), var(--base-cyan-300));
+  --color-ink-cyan-800: light-dark(var(--base-cyan-800), var(--base-cyan-200));
+  --color-ink-cyan-900: light-dark(var(--base-cyan-900), var(--base-cyan-100));
+  --color-ink-cyan-950: light-dark(var(--base-cyan-950), var(--base-cyan-50));
+  --color-ink-cyan-1000: light-dark(var(--base-cyan-1000), var(--base-cyan-0));
+
+  --color-ink-teal-0: light-dark(var(--base-teal-0), var(--base-teal-1000));
+  --color-ink-teal-50: light-dark(var(--base-teal-50), var(--base-teal-950));
+  --color-ink-teal-100: light-dark(var(--base-teal-100), var(--base-teal-900));
+  --color-ink-teal-200: light-dark(var(--base-teal-200), var(--base-teal-800));
+  --color-ink-teal-300: light-dark(var(--base-teal-300), var(--base-teal-700));
+  --color-ink-teal-400: light-dark(var(--base-teal-400), var(--base-teal-600));
+  --color-ink-teal-500: var(--base-teal-500);
+  --color-ink-teal-600: light-dark(var(--base-teal-600), var(--base-teal-400));
+  --color-ink-teal-700: light-dark(var(--base-teal-700), var(--base-teal-300));
+  --color-ink-teal-800: light-dark(var(--base-teal-800), var(--base-teal-200));
+  --color-ink-teal-900: light-dark(var(--base-teal-900), var(--base-teal-100));
+  --color-ink-teal-950: light-dark(var(--base-teal-950), var(--base-teal-50));
+  --color-ink-teal-1000: light-dark(var(--base-teal-1000), var(--base-teal-0));
+
+  --color-ink-sky-0: light-dark(var(--base-sky-0), var(--base-sky-1000));
+  --color-ink-sky-50: light-dark(var(--base-sky-50), var(--base-sky-950));
+  --color-ink-sky-100: light-dark(var(--base-sky-100), var(--base-sky-900));
+  --color-ink-sky-200: light-dark(var(--base-sky-200), var(--base-sky-800));
+  --color-ink-sky-300: light-dark(var(--base-sky-300), var(--base-sky-700));
+  --color-ink-sky-400: light-dark(var(--base-sky-400), var(--base-sky-600));
+  --color-ink-sky-500: var(--base-sky-500);
+  --color-ink-sky-600: light-dark(var(--base-sky-600), var(--base-sky-400));
+  --color-ink-sky-700: light-dark(var(--base-sky-700), var(--base-sky-300));
+  --color-ink-sky-800: light-dark(var(--base-sky-800), var(--base-sky-200));
+  --color-ink-sky-900: light-dark(var(--base-sky-900), var(--base-sky-100));
+  --color-ink-sky-950: light-dark(var(--base-sky-950), var(--base-sky-50));
+  --color-ink-sky-1000: light-dark(var(--base-sky-1000), var(--base-sky-0));
+
+  --color-ink-blue-0: light-dark(var(--base-blue-0), var(--base-blue-1000));
+  --color-ink-blue-50: light-dark(var(--base-blue-50), var(--base-blue-950));
+  --color-ink-blue-100: light-dark(var(--base-blue-100), var(--base-blue-900));
+  --color-ink-blue-200: light-dark(var(--base-blue-200), var(--base-blue-800));
+  --color-ink-blue-300: light-dark(var(--base-blue-300), var(--base-blue-700));
+  --color-ink-blue-400: light-dark(var(--base-blue-400), var(--base-blue-600));
+  --color-ink-blue-500: var(--base-blue-500);
+  --color-ink-blue-600: light-dark(var(--base-blue-600), var(--base-blue-400));
+  --color-ink-blue-700: light-dark(var(--base-blue-700), var(--base-blue-300));
+  --color-ink-blue-800: light-dark(var(--base-blue-800), var(--base-blue-200));
+  --color-ink-blue-900: light-dark(var(--base-blue-900), var(--base-blue-100));
+  --color-ink-blue-950: light-dark(var(--base-blue-950), var(--base-blue-50));
+  --color-ink-blue-1000: light-dark(var(--base-blue-1000), var(--base-blue-0));
+
+  --color-ink-indigo-0: light-dark(var(--base-indigo-0), var(--base-indigo-1000));
+  --color-ink-indigo-50: light-dark(var(--base-indigo-50), var(--base-indigo-950));
+  --color-ink-indigo-100: light-dark(var(--base-indigo-100), var(--base-indigo-900));
+  --color-ink-indigo-200: light-dark(var(--base-indigo-200), var(--base-indigo-800));
+  --color-ink-indigo-300: light-dark(var(--base-indigo-300), var(--base-indigo-700));
+  --color-ink-indigo-400: light-dark(var(--base-indigo-400), var(--base-indigo-600));
+  --color-ink-indigo-500: var(--base-indigo-500);
+  --color-ink-indigo-600: light-dark(var(--base-indigo-600), var(--base-indigo-400));
+  --color-ink-indigo-700: light-dark(var(--base-indigo-700), var(--base-indigo-300));
+  --color-ink-indigo-800: light-dark(var(--base-indigo-800), var(--base-indigo-200));
+  --color-ink-indigo-900: light-dark(var(--base-indigo-900), var(--base-indigo-100));
+  --color-ink-indigo-950: light-dark(var(--base-indigo-950), var(--base-indigo-50));
+  --color-ink-indigo-1000: light-dark(var(--base-indigo-1000), var(--base-indigo-0));
+
+  --color-ink-violet-0: light-dark(var(--base-violet-0), var(--base-violet-1000));
+  --color-ink-violet-50: light-dark(var(--base-violet-50), var(--base-violet-950));
+  --color-ink-violet-100: light-dark(var(--base-violet-100), var(--base-violet-900));
+  --color-ink-violet-200: light-dark(var(--base-violet-200), var(--base-violet-800));
+  --color-ink-violet-300: light-dark(var(--base-violet-300), var(--base-violet-700));
+  --color-ink-violet-400: light-dark(var(--base-violet-400), var(--base-violet-600));
+  --color-ink-violet-500: var(--base-violet-500);
+  --color-ink-violet-600: light-dark(var(--base-violet-600), var(--base-violet-400));
+  --color-ink-violet-700: light-dark(var(--base-violet-700), var(--base-violet-300));
+  --color-ink-violet-800: light-dark(var(--base-violet-800), var(--base-violet-200));
+  --color-ink-violet-900: light-dark(var(--base-violet-900), var(--base-violet-100));
+  --color-ink-violet-950: light-dark(var(--base-violet-950), var(--base-violet-50));
+  --color-ink-violet-1000: light-dark(var(--base-violet-1000), var(--base-violet-0));
+
+  --color-ink-purple-0: light-dark(var(--base-purple-0), var(--base-purple-1000));
+  --color-ink-purple-50: light-dark(var(--base-purple-50), var(--base-purple-950));
+  --color-ink-purple-100: light-dark(var(--base-purple-100), var(--base-purple-900));
+  --color-ink-purple-200: light-dark(var(--base-purple-200), var(--base-purple-800));
+  --color-ink-purple-300: light-dark(var(--base-purple-300), var(--base-purple-700));
+  --color-ink-purple-400: light-dark(var(--base-purple-400), var(--base-purple-600));
+  --color-ink-purple-500: var(--base-purple-500);
+  --color-ink-purple-600: light-dark(var(--base-purple-600), var(--base-purple-400));
+  --color-ink-purple-700: light-dark(var(--base-purple-700), var(--base-purple-300));
+  --color-ink-purple-800: light-dark(var(--base-purple-800), var(--base-purple-200));
+  --color-ink-purple-900: light-dark(var(--base-purple-900), var(--base-purple-100));
+  --color-ink-purple-950: light-dark(var(--base-purple-950), var(--base-purple-50));
+  --color-ink-purple-1000: light-dark(var(--base-purple-1000), var(--base-purple-0));
+
+  --color-ink-fuchsia-0: light-dark(var(--base-fuchsia-0), var(--base-fuchsia-1000));
+  --color-ink-fuchsia-50: light-dark(var(--base-fuchsia-50), var(--base-fuchsia-950));
+  --color-ink-fuchsia-100: light-dark(var(--base-fuchsia-100), var(--base-fuchsia-900));
+  --color-ink-fuchsia-200: light-dark(var(--base-fuchsia-200), var(--base-fuchsia-800));
+  --color-ink-fuchsia-300: light-dark(var(--base-fuchsia-300), var(--base-fuchsia-700));
+  --color-ink-fuchsia-400: light-dark(var(--base-fuchsia-400), var(--base-fuchsia-600));
+  --color-ink-fuchsia-500: var(--base-fuchsia-500);
+  --color-ink-fuchsia-600: light-dark(var(--base-fuchsia-600), var(--base-fuchsia-400));
+  --color-ink-fuchsia-700: light-dark(var(--base-fuchsia-700), var(--base-fuchsia-300));
+  --color-ink-fuchsia-800: light-dark(var(--base-fuchsia-800), var(--base-fuchsia-200));
+  --color-ink-fuchsia-900: light-dark(var(--base-fuchsia-900), var(--base-fuchsia-100));
+  --color-ink-fuchsia-950: light-dark(var(--base-fuchsia-950), var(--base-fuchsia-50));
+  --color-ink-fuchsia-1000: light-dark(var(--base-fuchsia-1000), var(--base-fuchsia-0));
+
+  --color-ink-pink-0: light-dark(var(--base-pink-0), var(--base-pink-1000));
+  --color-ink-pink-50: light-dark(var(--base-pink-50), var(--base-pink-950));
+  --color-ink-pink-100: light-dark(var(--base-pink-100), var(--base-pink-900));
+  --color-ink-pink-200: light-dark(var(--base-pink-200), var(--base-pink-800));
+  --color-ink-pink-300: light-dark(var(--base-pink-300), var(--base-pink-700));
+  --color-ink-pink-400: light-dark(var(--base-pink-400), var(--base-pink-600));
+  --color-ink-pink-500: var(--base-pink-500);
+  --color-ink-pink-600: light-dark(var(--base-pink-600), var(--base-pink-400));
+  --color-ink-pink-700: light-dark(var(--base-pink-700), var(--base-pink-300));
+  --color-ink-pink-800: light-dark(var(--base-pink-800), var(--base-pink-200));
+  --color-ink-pink-900: light-dark(var(--base-pink-900), var(--base-pink-100));
+  --color-ink-pink-950: light-dark(var(--base-pink-950), var(--base-pink-50));
+  --color-ink-pink-1000: light-dark(var(--base-pink-1000), var(--base-pink-0));
+
+  /* SEMANTIC */
+  --color-border: light-dark(var(--base-gray-600), var(--base-gray-800));
+}
+
+/* Registered so --bg always resolves to a real color
+   (contrast-color needs one) and theme changes animate. */
+@property --bg {
+  syntax: "<color>";
+  inherits: false; /* background does not inherit; neither does its shadow */
+  initial-value: transparent;
+}
+/* No @property --fg. fg is derived, not stored. */
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+  }
+}
+
+/* ===  INKS SURFACES  ==================================
+   Usage:   <b class="inks-green-500">auto contrast</b>
+   Variants: hover:inks-green-600, md:inks-gray-100, ...
+   Arbitrary: inks-[hotpink] — auto contrast on any color.
+   fg computed by the engine (WCAG2, white | black).
+   ====================================================== */
+@utility inks-* {
+  --bg: --value(--color-ink-*, [color]);
+  background: var(--bg);
+  --fg: contrast-color(var(--bg));
+  color: var(--fg);
+}
+

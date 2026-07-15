@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>INKs — test bench</title>
+<link rel="stylesheet" href="dist.css">
+</head>
+<body class="min-h-screen font-mono p-6 md:p-10">
+  <header class="mb-8 flex flex-wrap items-center gap-4 hidden">
+    <h1 class="text-xl font-bold">INKs</h1>
+    <span id="gamut" class="inks-gray-100 rounded px-2 py-1 text-xs"></span>
+    <label class="ml-auto flex items-center gap-2 text-xs">
+      scheme
+      <select id="scheme" class="inks-gray-100 rounded px-2 py-1">
+        <option value="light dark">system</option>
+        <option value="light">light</option>
+        <option value="dark">dark</option>
+      </select>
+    </label>
+  </header>
+
+  <section class="mb-10">
+    <h2 class="mb-2 text-xs opacity-60">THE MATRIX — 16 hue families + gray × 13 steps, fg by contrast-color()</h2>
+    <div id="matrix" class="flex flex-col gap-1"></div>
+  </section>
+
+  <!-- SURFACES demo hidden (Scott) — re-enable if you want the utility examples
+  <section class="mb-10 flex flex-wrap items-center gap-3">
+    <h2 class="w-full text-xs opacity-60">SURFACES</h2>
+    <button class="inks-green-500 hover:inks-green-600 rounded-lg px-4 py-2">hover walks the ramp</button>
+    <button class="inks-green-600 hover:inks-green-700 rounded-lg px-4 py-2">one step deeper</button>
+    <span class="inks-[hotpink] rounded-lg px-4 py-2">inks-[hotpink]</span>
+    <span class="bg-ink-cyan-200 text-ink-cyan-950 rounded-lg px-4 py-2">plain utilities: bg-ink-cyan-200</span>
+  </section>
+  -->
+
+
+  <section class="grid gap-8 md:grid-cols-3">
+    <div>
+      <h2 class="mb-2 text-xs opacity-60">LIGHTNESS (L)</h2>
+      <div id="lightness" class="flex flex-col gap-1"></div>
+    </div>
+    <div>
+      <h2 class="mb-2 text-xs opacity-60">CHROMA (C)</h2>
+      <div id="chroma" class="flex flex-col gap-1"></div>
+    </div>
+    <div>
+      <h2 class="mb-2 text-xs opacity-60">HUES (H)</h2>
+      <div id="hues" class="flex flex-col gap-1"></div>
+      <button id="copy-intent" class="inks-gray-900 mt-4 rounded-lg px-3 py-2 text-xs">Copy intent</button>
+      <textarea id="intent-out" class="inks-gray-100 mt-2 w-full rounded p-2 text-[10px] font-mono" rows="6" readonly style="display:none" spellcheck="false"></textarea>
+    </div>
+  </section>
+
+  <section class="mt-8 grid gap-8 md:grid-cols-2">
+    <div>
+      <h2 class="mb-2 text-xs opacity-60">FADERS — per-hue chroma ×</h2>
+      <div id="faders" class="flex flex-col gap-1"></div>
+    </div>
+    <div>
+      <h2 class="mb-2 text-xs opacity-60">HK — Nayatani lightness correction (read-only)</h2>
+      <div id="hk" class="flex flex-col gap-1"></div>
+    </div>
+  </section>
+
+  <script src="main.js"></script>
+</body>
+</html>
